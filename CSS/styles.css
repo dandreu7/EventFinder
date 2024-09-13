@@ -1,0 +1,63 @@
+/* Base styles */
+body {
+  background-color: #ffffff; /* White background */
+  font-family: Arial, sans-serif;
+  color: #000000; /* Black text */
+}
+
+.navbar {
+  background-color: #00693e; /* UNC Charlotte Green */
+  border-bottom: 2px solid #d4af37; /* Gold border */
+}
+
+.navbar .navbar-brand,
+.navbar-nav .nav-link {
+  color: #00693e !important; /* White text */
+}
+
+.navbar .navbar-brand:hover,
+.navbar-nav .nav-link:hover {
+  color: #d4af37 !important; /* Gold on hover */
+}
+
+.hero-section {
+  margin-top: 20px;
+}
+
+.hero-section img {
+  height: 400px;
+  object-fit: cover;
+}
+
+/* Upcoming Events */
+.upcoming-events h2 {
+  color: #00693e; /* Green */
+}
+
+.card {
+  border: 2px solid #00693e; /* Green border */
+}
+
+.card-title {
+  color: #00693e; /* Green text */
+}
+
+.btn-primary {
+  background-color: #00693e; /* Green button */
+  border-color: #00693e;
+}
+
+.btn-primary:hover {
+  background-color: #d4af37; /* Gold on hover */
+  border-color: #d4af37;
+}
+
+/* Footer */
+footer {
+  background-color: #00693e; /* Green */
+  color: #ffffff; /* White text */
+}
+
+footer p {
+  color: #d4af37; /* Gold text */
+}
