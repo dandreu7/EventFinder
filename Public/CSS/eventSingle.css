@@ -1,0 +1,40 @@
+.modal-content {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.modal-header {
+    background-color: #00693e; /* UNC Charlotte Green */
+    color: white;
+}
+
+.modal-title {
+    font-size: 24px;
+}
+
+/* Ensure the close button ("X") is styled nicely and stays at the top right */
+button.close {
+    color: white;
+    opacity: 1; /* Make sure it's fully visible */
+    font-size: 1.5rem;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    border: none;
+    background: none;
+}
+
+button.close:hover {
+    color: #d4af37; /* Gold on hover */
+}
+
+.modal-body img {
+    max-height: 300px;
+    object-fit: cover;
+}
+
+/* Remove any extra buttons from the footer if not needed */
+.modal-footer {
+    display: none; /* Hide the footer if there's no other button needed */
+}

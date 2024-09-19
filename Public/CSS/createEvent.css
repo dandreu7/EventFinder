@@ -1,0 +1,70 @@
+/* Base styles for the Create Event form */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    color: #00693e; /* UNC Charlotte Green */
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    font-weight: bold;
+  }
+  
+  .form-control {
+    border-radius: 5px;
+    border: 2px solid #00693e; /* Green border */
+    margin-bottom: 15px;
+  }
+  
+  .form-control-file {
+    border: 2px solid #d4af37; /* Gold border for the file input */
+  }
+  
+  button {
+    background-color: #00693e;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #d4af37;
+  }
+  
+  /* Styles for the drag-and-drop file upload */
+  .drop-zone {
+    border: 2px dashed #00693e;
+    border-radius: 10px;
+    text-align: center;
+    padding: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .drop-zone--active {
+    background-color: #e0ffe0; /* Light green background when active */
+  }
+  
+  .drop-zone p {
+    color: #00693e;
+    font-size: 14px;
+    margin: 0;
+  }
+  
+  input[type="file"] {
+    display: none; /* Hide the file input, we only use it for drag-and-drop */
+  }
+  
+  /* Add some margin to the form */
+  form {
+    margin-top: 30px;
+  }
+  

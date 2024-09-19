@@ -123,28 +123,27 @@
 
     <!-- Upcoming Events Section -->
     <section class="upcoming-events container mt-5">
-      <h2>Upcoming Events</h2>
-      <div class="card-deck">
-        <div class="card">
-          <img src="../../images/event1.jpeg" class="card-img-top img-fluid" alt="Event 1" />
-          <div class="card-body">
-            <h5 class="card-title">Campus Concert</h5>
-            <p class="card-text">
-              Join us for an unforgettable concert at the Student Union!
-            </p>
-            <a href="#" class="btn btn-primary">RSVP</a>
-          </div>
-        </div>
-        <div class="card">
-          <img src="/images/event2.jpeg" class="card-img-top img-fluid" alt="Event 2" />
-          <div class="card-body">
-            <h5 class="card-title">Food Truck Fest</h5>
-            <p class="card-text">
-              Come and enjoy local food trucks on the quad.
-            </p>
-            <a href="#" class="btn btn-primary">RSVP</a>
-          </div>
-        </div>
+      <h2 class="text-center">Upcoming Events</h2>
+      <div class="row">
+        <!-- Dynamically render upcoming events -->
+        <% if (upcomingEvents && upcomingEvents.length > 0) { %>
+          <% upcomingEvents.forEach(function(event) { %>
+            <div class="col-md-4 mb-4">
+              <div class="card h-100">
+                <img src="<%= event.imagePath %>" class="card-img-top img-fluid" alt="<%= event.name %>" />
+                <div class="card-body">
+                  <h5 class="card-title"><%= event.name %></h5>
+                  <p class="card-text"><%= event.description %></p>
+                  <p class="card-text"><strong>Date:</strong> <%= event.date %></p>
+                  <p class="card-text"><strong>Location:</strong> <%= event.location %></p>
+                  <a href="/events/<%= event.id %>" class="btn btn-primary">View Event</a>
+                </div>
+              </div>
+            </div>
+          <% }); %>
+        <% } else { %>
+          <p class="text-center">No upcoming events.</p>
+        <% } %>
       </div>
     </section>
 
