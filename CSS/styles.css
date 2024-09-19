@@ -1,63 +1,40 @@
-/* Base styles */
+/* Global CSS - for consistent styles like header and footer */
+
+/* Base Styles */
 body {
-  background-color: #ffffff; /* White background */
+  background-color: #ffffff;
   font-family: Arial, sans-serif;
-  color: #000000; /* Black text */
+  color: #000000;
 }
 
+/* Navbar Styling */
 .navbar {
-  background-color: #00693e; /* UNC Charlotte Green */
-  border-bottom: 2px solid #d4af37; /* Gold border */
+  background-color: #00693e;
+  border-bottom: 2px solid #d4af37;
 }
 
 .navbar .navbar-brand,
 .navbar-nav .nav-link {
-  color: #00693e !important; /* White text */
+  color: #000000 !important;
 }
 
 .navbar .navbar-brand:hover,
 .navbar-nav .nav-link:hover {
-  color: #d4af37 !important; /* Gold on hover */
+  color: #d4af37 !important;
 }
 
-.hero-section {
-  margin-top: 20px;
+/* Footer Styling */
+.footer {
+  background-color: #00693e;
+  color: #000000;
+  padding: 10px 0;
 }
 
-.hero-section img {
-  height: 400px;
-  object-fit: cover;
+.footer p {
+  color: #d4af37;
 }
 
-/* Upcoming Events */
-.upcoming-events h2 {
-  color: #00693e; /* Green */
-}
-
-.card {
-  border: 2px solid #00693e; /* Green border */
-}
-
-.card-title {
-  color: #00693e; /* Green text */
-}
-
-.btn-primary {
-  background-color: #00693e; /* Green button */
-  border-color: #00693e;
-}
-
-.btn-primary:hover {
-  background-color: #d4af37; /* Gold on hover */
-  border-color: #d4af37;
-}
-
-/* Footer */
-footer {
-  background-color: #00693e; /* Green */
-  color: #ffffff; /* White text */
-}
-
-footer p {
-  color: #d4af37; /* Gold text */
+.img-fluid {
+  max-width: 100%;
+  height: auto;
 }

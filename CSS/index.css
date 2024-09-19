@@ -1,0 +1,34 @@
+/* Page-Specific CSS for index.html */
+
+/* Hero Section */
+.hero-section {
+    margin-top: 20px;
+  }
+  
+  .hero-section img {
+    height: 400px;
+    object-fit: cover;
+  }
+  
+  /* Upcoming Events Section */
+  .upcoming-events h2 {
+    color: #00693e;
+  }
+  
+  .card {
+    border: 2px solid #00693e;
+  }
+  
+  .card-title {
+    color: #00693e;
+  }
+  
+  .btn-primary {
+    background-color: #00693e;
+    border-color: #00693e;
+  }
+  
+  .btn-primary:hover {
+    background-color: #d4af37;
+    border-color: #d4af37;
+  }
