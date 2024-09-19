@@ -39,40 +39,8 @@
     </style>
   </head>
   <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Event Finder</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Events</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Create Event</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Sign Up</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+    <!-- Include Header Partial -->
+    <%- include('partials/header') %>
 
     <!-- Hero Section with Pictures of UNC Charlotte and Event Buildings -->
     <section class="hero-section">
@@ -80,11 +48,7 @@
         <div id="campusCarousel" class="carousel slide" data-ride="carousel">
           <!-- Carousel Indicators -->
           <ol class="carousel-indicators">
-            <li
-              data-target="#campusCarousel"
-              data-slide-to="0"
-              class="active"
-            ></li>
+            <li data-target="#campusCarousel" data-slide-to="0" class="active"></li>
             <li data-target="#campusCarousel" data-slide-to="1"></li>
             <li data-target="#campusCarousel" data-slide-to="2"></li>
             <li data-target="#campusCarousel" data-slide-to="3"></li>
@@ -162,7 +126,7 @@
       <h2>Upcoming Events</h2>
       <div class="card-deck">
         <div class="card">
-          <img src="/images/event1.jpeg" class="card-img-top img-fluid" alt="Event 1" />
+          <img src="../../images/event1.jpeg" class="card-img-top img-fluid" alt="Event 1" />
           <div class="card-body">
             <h5 class="card-title">Campus Concert</h5>
             <p class="card-text">
@@ -184,10 +148,8 @@
       </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-light text-center text-lg-start mt-5 footer">
-      <div class="text-center p-3">© 2024 Event Planner - Charlotte, NC</div>
-    </footer>
+    <!-- Include Footer Partial -->
+    <%- include('partials/footer') %>
 
     <!-- Full jQuery version (required for Bootstrap Carousel) -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
