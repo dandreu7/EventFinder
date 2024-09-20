@@ -78,3 +78,4 @@ fabric.properties
 .idea/vcs.xml
 .idea/jsLibraryMappings.xml
 .idea/material_theme_project_new.xml
+/node_modules/
