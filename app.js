@@ -49,14 +49,26 @@ app.get('/', (req, res) => {
   res.render('index', { upcomingEvents }); // Pass the upcoming events to the index.ejs file
 });
 
-// Events page route
-app.get('/events', (req, res) => {
-  res.render('events/events', { events }); // Pass all events to the events.ejs file
-});
-
-// Create Event page route
+// Create Event page route (comes before dynamic event ID)
 app.get('/events/create', (req, res) => {
   res.render('events/createEvent'); // Renders createEvent.ejs
+});
+
+// Events page route
+app.get('/events', (req, res) => {
+  res.render('events/events', { events }); // Render events.ejs and pass all events
+});
+
+// Single Event Details route (view individual event)
+app.get('/events/:id', (req, res) => {
+  const eventId = parseInt(req.params.id);
+  const event = events.find(e => e.id === eventId);
+
+  if (event) {
+    res.render('events/eventSingle', { event }); // Render eventSingle.ejs and pass the event data
+  } else {
+    res.status(404).send('Event not found'); // Handle case where event is not found
+  }
 });
 
 // POST route to handle the form submission with file upload
@@ -65,7 +77,19 @@ app.post('/events/create', upload.single('logo'), (req, res) => {
   const logoPath = req.file ? `/uploads/${req.file.filename}` : ''; // Get the uploaded file path
   console.log('New Event Created:', { name, date, location, description, logoPath });
 
-  // Add the logic to save the event (e.g., saving to a database or an array)
+  // Logic to push the new event to the events array
+  const newEvent = {
+    id: events.length + 1, // Incremental ID
+    name,
+    date,
+    location,
+    description,
+    imagePath: logoPath,
+    admission: 'Free', // Default or custom value
+    time: 'To be decided', // Default or custom value
+  };
+
+  events.push(newEvent); // Add the new event to the array
 
   res.redirect('/events'); // Redirect to the events page after creating
 });
