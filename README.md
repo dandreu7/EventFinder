@@ -21,7 +21,8 @@ Thomas Zimnick
   In the future, this project will be hosted on a server that will allow users to use the web-applicaiton through a browser.
 
 **Usage Details:**  
+  *To Be Updated*
 
 **Team Progress:**
-Basic Webapp Skeleton Created. Site folder structure initialized. Basic site styling. MVC Pattern setup.
+  Basic Webapp Skeleton Created. Site folder structure initialized. Basic site styling. MVC Pattern setup.
 
