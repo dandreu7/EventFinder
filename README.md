@@ -16,9 +16,10 @@ Current event management tools often cater to broader audiences without consider
 With this application, users will be able to create, manage, and promote their events more effectively, increasing community engagement and fostering a vibrant local event scene. The project not only seeks to address inefficiencies in current products but also to provide a tailored experience. 
 
 
-Setup Instructions:
+Setup Instructions: Create a clone of this repository, then navigate to the project folder and run the command `npm install` to download all required third-party dependencies.
+                    In the future, this project will be hosted on a server that will allow users to use the web-applicaiton through a browser.
 
-Usage Details:
+Usage Details:  
 
-Team Progress:
+Team Progress:  
 
