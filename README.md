@@ -25,4 +25,3 @@ Thomas Zimnick
 
 **Team Progress:**
   Basic Webapp Skeleton Created. Site folder structure initialized. Basic site styling. MVC Pattern setup.
-

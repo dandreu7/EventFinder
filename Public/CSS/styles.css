@@ -38,3 +38,24 @@ body {
   max-width: 100%;
   height: auto;
 }
+
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  flex: 1;
+}
+
+footer {
+  background-color: #f8f9fa;
+  text-align: center;
+  padding: 1rem;
+  position: relative;
+  width: 100%;
+}
