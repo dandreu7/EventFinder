@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const multer = require('multer'); // Multer for file uploads
+const bodyParser = require('body-parser'); // For form data parsing
 const app = express();
 
 // Set up Multer for file uploads
@@ -13,6 +14,10 @@ const storage = multer.diskStorage({
   }
 });
 const upload = multer({ storage: storage });
+
+// In-memory user for authentication demonstration
+const user = { email: 'user@example.com', password: 'password123' };
+const users = []; // Simple in-memory array to store new users
 
 // Event Data (for demonstration)
 const events = [
@@ -28,6 +33,9 @@ const events = [
   { id: 10, name: 'Winter Wonderland at Freedom Park', date: '2024-12-01', time: '5:00 PM', location: 'Freedom Park', description: 'A magical winter festival with ice skating, lights, and holiday treats!', admission: '25', imagePath: '/uploads/winterwonderland.jpg' }
 ];
 
+// Middleware to parse form data
+app.use(bodyParser.urlencoded({ extended: true }));
+
 // Serve static files from the "public" directory
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -35,17 +43,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Middleware for parsing form data
-app.use(express.urlencoded({ extended: true }));
-
 // Home page route with upcoming events
 app.get('/', (req, res) => {
-  // Sort events by date
   const sortedEvents = events.sort((a, b) => new Date(a.date) - new Date(b.date));
-
-  // Get the top 3 upcoming events
   const upcomingEvents = sortedEvents.slice(0, 3);
-
   res.render('index', { upcomingEvents }); // Pass the upcoming events to the index.ejs file
 });
 
@@ -71,11 +72,46 @@ app.get('/events/:id', (req, res) => {
   }
 });
 
-// POST route to handle the form submission with file upload
+// Login page route
+app.get('/login', (req, res) => {
+  res.render('user/login'); // Render login.ejs
+});
+
+// Handle login form submission
+app.post('/login', (req, res) => {
+  const { email, password } = req.body;
+
+  // Validate credentials (in-memory user for simplicity)
+  if (email === user.email && password === user.password) {
+    // If valid, redirect to profile page
+    res.render('user/profile', { user });
+  } else {
+    // If invalid, send error message
+    res.send('Invalid email or password');
+  }
+});
+
+// Signup page route
+app.get('/signup', (req, res) => {
+  res.render('user/signup'); // Render signup.ejs
+});
+
+// Handle signup form submission
+app.post('/signup', (req, res) => {
+  const { email, password } = req.body;
+
+  // Simulate saving the user to the database
+  users.push({ email, password });
+  console.log('New Account Created:', { email, password });
+
+  // Redirect to login after account creation
+  res.redirect('/login');
+});
+
+// POST route to handle the event creation form submission with file upload
 app.post('/events/create', upload.single('logo'), (req, res) => {
   const { name, date, location, description } = req.body;
   const logoPath = req.file ? `/uploads/${req.file.filename}` : ''; // Get the uploaded file path
-  console.log('New Event Created:', { name, date, location, description, logoPath });
 
   // Logic to push the new event to the events array
   const newEvent = {
@@ -90,7 +126,6 @@ app.post('/events/create', upload.single('logo'), (req, res) => {
   };
 
   events.push(newEvent); // Add the new event to the array
-
   res.redirect('/events'); // Redirect to the events page after creating
 });
 
