@@ -80,3 +80,4 @@ fabric.properties
 .idea/material_theme_project_new.xml
 /node_modules/
 /.idea
+/node_modules
