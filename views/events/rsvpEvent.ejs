@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RSVP'd Events</title>
+
+    <!-- Link to Create Event CSS -->
+    <link rel="stylesheet" href="/CSS/rsvpEvent.css" />
+    <link rel="stylesheet" href="/CSS/styles.css" />
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Include Header Partial -->
+    <%- include('../partials/header') %>
+
+    <!-- Create Event Form -->
+    <section class="container mt-5">
+      <h1 class="text-center">RSVP'd Events</h1>
+      <form action="/events/rsvp'd" method="POST" enctype="multipart/form-data" class="mt-4">
+        <div class="form-group">
+          <label for="eventName">Event Name</label>
+          <input type="text" class="form-control" id="eventName" name="name" placeholder="Enter event name" required />
+        </div>
+
+        <div class="form-group">
+          <label for="eventDate">Date</label>
+          <input type="date" class="form-control" id="eventDate" name="date" required />
+        </div>
+
+        <div class="form-group">
+          <label for="eventLocation">Location</label>
+          <input type="text" class="form-control" id="eventLocation" name="location" placeholder="Enter event location" required />
+        </div>
+
+        <div class="form-group">
+          <label for="eventDescription">Description</label>
+          <textarea class="form-control" id="eventDescription" name="description" rows="4" placeholder="Enter event description" required></textarea>
+        </div>
+
+      </form>
+    </section>
+
+    <!-- Include Footer Partial -->
+    <%- include('../partials/footer') %>
+
+    <!-- JavaScript -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    </body>
+</html>
