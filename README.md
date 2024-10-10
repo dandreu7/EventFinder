@@ -27,4 +27,3 @@ Thomas Zimnick
   Basic Webapp Skeleton Created. Site folder structure initialized. Basic site styling. MVC Pattern setup.
 
 
-Demonstrate a successful pull of these files, change some code, and push the modified version back into your GitHub repository.
