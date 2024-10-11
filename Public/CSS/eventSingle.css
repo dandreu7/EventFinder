@@ -13,6 +13,34 @@
     font-size: 24px;
 }
 
+.btn-primary {
+    background-color: #00693e;
+    border-color: #00693e;
+}
+
+.btn-success {
+    background-color: #00693e;
+    border-color: #00693e;
+}
+
+.btn-primary.focus, .btn-primary:focus {
+    background-color: #00693e;
+    border-color: #00693e;
+    box-shadow: 0 0 0 .2rem rgba(72, 180, 97, .5);
+}
+
+.btn-primary:hover {
+    background-color: #d4af37; /* Gold on hover */
+    border-color: #d4af37;
+    box-shadow: 0 0 0 .2rem rgba(212, 175, 55, .5);
+}
+
+.btn-success:hover {
+    background-color: #d4af37; /* Gold on hover */
+    border-color: #d4af37;
+    box-shadow: 0 0 0 .2rem rgba(212, 175, 55, .5);
+}
+
 /* Ensure the close button ("X") is styled nicely and stays at the top right */
 button.close {
     color: white;
