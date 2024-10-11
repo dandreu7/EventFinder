@@ -1,8 +1,22 @@
 const express = require('express');
 const path = require('path');
+const mongoose = require('mongoose');
+const MongoStore = require('connect-mongo');
 const multer = require('multer'); // Multer for file uploads
 const bodyParser = require('body-parser'); // For form data parsing
 const app = express();
+
+let port = 3000;
+let host = 'localhost';
+let url = "mongodb+srv://tzimnick:6728Final2024_@eventcluster.7ilvk.mongodb.net/?retryWrites=true&w=majority&appName=EventCluster"
+
+
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true})
+    .then(() => {
+        app.listen(port, host, () => {
+            console.log('Server is running on port', port);
+        });
+    });
 
 // Set up Multer for file uploads
 const storage = multer.diskStorage({
@@ -135,7 +149,7 @@ app.post('/events/create', upload.single('logo'), (req, res) => {
 });
 
 // Start the server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+// const PORT = process.env.PORT || 3000;
+// app.listen(PORT, () => {
+//   console.log(`Server is running on http://localhost:${PORT}`);
+// });
