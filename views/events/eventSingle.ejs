@@ -30,6 +30,7 @@
           <p><strong>Admission:</strong> $<%= event.admission %></p>
           <p><%= event.description %></p>
           <button id="rsvpButton<%=event.id%>" type="button" class="btn btn-primary btn-lg">RSVP Now</button>
+          <button id="rsvpButton<%=event.id%>" type="button" class="btn btn-primary btn-lg">RSVP Now</button>
         </div>
       </div>
     </section>
@@ -41,51 +42,5 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<!-- Script to Handle RSVP tracking -->
-<script>
-
-  // Handle RSVP tracking
-    document.addEventListener("DOMContentLoaded", () => {
-      
-      $(".modal").on("shown.bs.modal", function() {
-        const eventId = this.id.replace("eventModal", "");
-        const rsvpButton = document.getElementById(`rsvpButton${eventId}`);
-        if (rsvpButton) {
-          const rsvpStatus = localStorage.getItem(`rsvpPressed${eventId}`) === "true";
-
-          updateRsvpButton(rsvpButton, rsvpStatus);
-          rsvpButton.removeEventListener("click", toggleRsvp);
-          rsvpButton.addEventListener("click", toggleRsvp);
-
-          function toggleRsvp() {
-            const isConfirmed = rsvpButton.classList.contains("btn-success");
-            const newStatus = !isConfirmed;
-
-            localStorage.setItem(`rsvpPressed${eventId}`, newStatus);
-            updateRsvpButton(rsvpButton, newStatus);
-          }
-
-          function updateRsvpButton(button, Confirmed) {
-            if (Confirmed) {
-              rsvpButton.textContent = "RSVP Confirmed";
-              rsvpButton.classList.remove("btn-primary");
-              rsvpButton.classList.add("btn-success");
-            }
-            else {
-              rsvpButton.textContent = "RSVP Now";
-              rsvpButton.classList.remove("btn-success");
-              rsvpButton.classList.add("btn-primary");
-            }
-          }
-        }
-        else {
-          console.error(`RSVP button not found for event ID: ${eventId}`);
-        }
-      });
-    });
-  
-</script>
-
   </body>
 </html>
