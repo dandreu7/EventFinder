@@ -21,12 +21,13 @@ form {
 }
 
 button {
-    background-color: #00693e; /* UNC Charlotte Green */
+    background-color: #00693e !important; /* UNC Charlotte Green */
     border: none;
-    color: white;
+    color: black !important;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
+    display: inline-block;
 }
 
 button:hover {
