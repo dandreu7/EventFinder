@@ -1,61 +1,90 @@
-/* Global CSS - for consistent styles like header and footer */
-
-/* Base Styles */
-body {
-  background-color: #ffffff;
-  font-family: Arial, sans-serif;
-  color: #000000;
-}
-
-/* Navbar Styling */
-.navbar {
-  background-color: #00693e;
-  border-bottom: 2px solid #d4af37;
-}
-
-.navbar .navbar-brand,
-.navbar-nav .nav-link {
-  color: #000000 !important;
-}
-
-.navbar .navbar-brand:hover,
-.navbar-nav .nav-link:hover {
-  color: #d4af37 !important;
-}
-
-/* Footer Styling */
-.footer {
-  background-color: #00693e;
-  color: #000000;
-  padding: 10px 0;
-}
-
-.footer p {
-  color: #d4af37;
-}
-
-.img-fluid {
-  max-width: 100%;
-  height: auto;
-}
-
-html, body {
-  height: 100%;
-}
-
-body {
+/* Sidebar Styling */
+.sidebar {
+  width: 250px;
+  background-color: #00693e; /* UNC Charlotte green */
+  color: white;
+  height: 100vh;
+  padding: 20px;
+  position: fixed;
+  top: 0; /* Align with header */
   display: flex;
   flex-direction: column;
 }
 
-.container {
-  flex: 1;
+/* Adding margin to lower sidebar menu items */
+.sidebar .menu {
+  list-style: none;
+  padding: 0;
+  flex-grow: 1;
+  margin-top: 60px; /* Adjust this value to move the menu items down */
 }
 
-footer {
-  background-color: #f8f9fa;
-  text-align: center;
-  padding: 1rem;
-  position: relative;
+.sidebar .menu li {
+  margin-bottom: 20px;
+}
+
+.sidebar .menu li a {
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+}
+
+/* Ensure the last menu item (Dashboard) is pushed to the bottom */
+.sidebar .menu li.mt-auto {
+  margin-top: auto;
+}
+
+.sidebar .support {
+  margin-top: 20px;
+}
+
+/* Main Content and Header */
+.main-content {
+  margin-left: 250px; /* Align content next to the sidebar */
+  padding: 20px;
+}
+
+/* Header logo link styling */
+.logo-link {
+  text-decoration: none;
+  color: white; /* White for consistency with the green header */
+  font-size: 24px;
+}
+
+.logo-link:hover {
+  color: #d4af37; /* Gold for hover */
+}
+
+.header {
+  display: flex;
+  justify-content: space-between; /* Align logo to the left and profile icons to the right */
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #00693e; /* Same green as the sidebar */
+  border-bottom: 0; /* Remove border to blend with sidebar */
+  position: fixed;
   width: 100%;
+  top: 0;
+  z-index: 100;
+}
+
+.header .logo {
+  font-size: 24px;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+}
+
+.user-profile .notification-icon,
+.user-profile .profile-icon {
+  margin-left: 20px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Add padding to avoid content overlapping with the fixed header */
+.main-content {
+  padding-top: 100px; /* Adjust as necessary to avoid overlap */
 }
