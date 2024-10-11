@@ -55,6 +55,11 @@ app.get('/events/create', (req, res) => {
   res.render('events/createEvent'); // Renders createEvent.ejs
 });
 
+// RSVP'd Events page route
+app.get("/events/rsvp'd", (req, res) => {
+  res.render("events/rsvpEvent"); // Renders rsvpEvent.ejs
+})
+
 // Events page route
 app.get('/events', (req, res) => {
   res.render('events/events', { events }); // Render events.ejs and pass all events
