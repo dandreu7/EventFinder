@@ -1,12 +1,37 @@
-
 /* Page-specific styles for the signup page */
+/* Ensure the page takes up the full height of the window */
+@import url('colors.css'); /*Imports colors*/
+
+html, body {
+    height: 100%;
+}
+
+/* Flexbox layout for sticky footer */
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1; /* Take up available space */
+}
+
+footer {
+    background-color: #f8f9fa;
+    text-align: center;
+    padding: 10px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
 .container {
     max-width: 500px;
     margin-top: 50px;
 }
 
 h1 {
-    color: #00693e; /* UNC Charlotte Green */
+    color: var(--primary-color) !important; /* UNC Charlotte Green */
     text-align: center;
     margin-bottom: 10px;
 }
@@ -21,15 +46,15 @@ form {
 }
 
 button {
-    background-color: #00693e; /* UNC Charlotte Green */
+    background-color: var(--primary-color) !important; /* UNC Charlotte Green */
     border: none;
-    color: white;
+    color: white !important;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #d4af37; /* Gold color on hover */
+    background-color: var(--secondary-color) !important; /* UNC Light Green color on hover */
 }
 
