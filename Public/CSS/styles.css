@@ -26,7 +26,15 @@
 .sidebar .menu li a {
   text-decoration: none;
   color: white;
-  font-size: 18px;
+  font-size: 25px;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar .menu li a .menu-icon {
+  margin-right: 10px;
+  font-size: 20px;
+  color: black; /* Set the icon color to black */
 }
 
 /* Ensure the last menu item (Dashboard) is pushed to the bottom */
@@ -36,6 +44,10 @@
 
 .sidebar .support {
   margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
 }
 
 /* Main Content and Header */
@@ -69,7 +81,16 @@
 }
 
 .header .logo {
+  display: flex;
+  align-items: center;
+}
+
+/* Hamburger Menu */
+.hamburger {
   font-size: 24px;
+  cursor: pointer;
+  color: black; /* Set the hamburger icon color to black */
+  margin-right: 15px;
 }
 
 .user-profile {
@@ -82,6 +103,7 @@
   margin-left: 20px;
   font-size: 24px;
   cursor: pointer;
+  color: black; /* Set the icons in the header to black */
 }
 
 /* Add padding to avoid content overlapping with the fixed header */
