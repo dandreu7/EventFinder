@@ -29,7 +29,7 @@
           <p><strong>Location:</strong> <%= event.location %></p>
           <p><strong>Admission:</strong> $<%= event.admission %></p>
           <p><%= event.description %></p>
-          <a href="#" class="btn btn-primary">RSVP</a>
+          <button id="rsvpButton<%=event.id%>" type="button" class="btn btn-primary btn-lg">RSVP Now</button>
         </div>
       </div>
     </section>
