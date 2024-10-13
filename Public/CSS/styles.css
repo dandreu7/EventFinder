@@ -6,7 +6,7 @@
   height: 100vh;
   padding: 20px;
   position: fixed;
-  top: 0; /* Align with header */
+  top: 0;
   display: flex;
   flex-direction: column;
 }
@@ -54,6 +54,8 @@
 .main-content {
   margin-left: 250px; /* Align content next to the sidebar */
   padding: 20px;
+  flex: 1; /* Allow main content to take available space */
+  min-height: calc(100vh - 100px); /* Adjust this value to account for header/footer height */
 }
 
 /* Header logo link styling */
@@ -109,4 +111,35 @@
 /* Add padding to avoid content overlapping with the fixed header */
 .main-content {
   padding-top: 100px; /* Adjust as necessary to avoid overlap */
+}
+
+/* Footer Styling */
+.footer {
+  background-color: #f8f9fa;
+  text-align: center;
+  padding: 10px;
+  width: calc(100% - 250px); /* Ensure footer aligns with the main content, not the sidebar */
+  margin-left: 250px; /* Prevent the footer from overlapping the sidebar */
+  position: relative;
+  bottom: 0;
+  flex-shrink: 0; /* Ensure the footer doesn't shrink */
+}
+
+/* Ensure the footer is always at the bottom of the page */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  flex: 1;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+  .footer {
+    width: 100%;
+    margin-left: 0; /* For smaller screens, the sidebar might collapse, so footer takes full width */
+  }
 }

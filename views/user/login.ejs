@@ -1,54 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
 
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Global CSS -->
-    <link rel="stylesheet" href="/CSS/styles.css">
-    <!-- Page-specific CSS -->
-    <link rel="stylesheet" href="/CSS/login.css">
-</head>
-<body>
-
+    <link rel="stylesheet" href="/CSS/styles.css" />
+    <!-- Login-specific CSS -->
+    <link rel="stylesheet" href="/CSS/login.css" />
+  </head>
+  <body>
     <!-- Include Header Partial -->
     <%- include('../partials/header') %>
     <!-- Include Sidebar Partial -->
     <%- include('../partials/sidebar') %>
 
-    <!-- Main content area -->
-    <div class="content container d-flex flex-column justify-content-center align-items-center mt-5">
-        <div class="login-container p-5 rounded shadow-lg">
-            <h2 class="text-center mb-4">Login to Your Account</h2>
-            <form action="/login" method="POST" class="mt-4">
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" class="form-control" id="email" name="email" required placeholder="Enter your email">
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" required placeholder="Enter your password">
-                </div>
-                <button type="submit" class="btn btn-primary btn-block mt-3">Login</button>
-            </form>
-            <p class="text-center mt-3">
-                <a href="/signup" class="text-secondary">Don't have an account? Sign Up</a>
-            </p>
+    <div class="main-content d-flex justify-content-center align-items-center">
+      <div class="login-box">
+        <h1 class="text-center">Login</h1>
+        <form action="/login" method="POST" class="mt-4 w-100">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              name="email"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              name="password"
+              placeholder="Enter your password"
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Login</button>
+        </form>
+
+        <!-- Create Account Link -->
+        <div class="text-center mt-3">
+          <p>Don't have an account? <a href="/signup">Create an Account</a></p>
         </div>
+      </div>
     </div>
 
     <!-- Include Footer Partial -->
-    <footer>
-        <%- include('../partials/footer') %>
-    </footer>
+    <%- include('../partials/footer') %>
 
     <!-- JavaScript -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-</body>
+  </body>
 </html>

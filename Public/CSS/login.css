@@ -1,54 +1,37 @@
-/* login.css */
+/* Make sure body and main-content stretch to fill the page */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
 
-/* Center the login form */
-.login-container {
+.main-content {
+  flex-grow: 1; /* Takes up available space to push footer down */
+  margin-left: 250px; /* Avoid sidebar overlap */
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Login box styling */
+.login-box {
   background-color: #ffffff;
   border-radius: 15px;
   max-width: 400px;
   width: 100%;
   padding: 30px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Button customization */
-.btn-primary {
-  background-color: #00693e;
-  border-color: #00693e;
-  font-size: 18px;
-}
-
-.btn-primary:hover {
-  background-color: #d4af37;
-  border-color: #d4af37;
-}
-
-/* Text input customization */
-.form-control {
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-/* Link styling */
-.text-secondary:hover {
-  color: #d4af37;
-}
-
-/* Ensures footer is always at the bottom */
-body {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-}
-
-.content {
-  flex: 1;
-}
-
+/* Footer adjustment */
 footer {
   background-color: #f8f9fa;
   text-align: center;
   padding: 10px;
+  width: calc(100% - 250px); /* Account for sidebar width */
+  margin-left: 250px; /* Align with sidebar */
   position: relative;
   bottom: 0;
-  width: 100%;
 }
