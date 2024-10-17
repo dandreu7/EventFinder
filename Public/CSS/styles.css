@@ -38,6 +38,7 @@
 
 .sidebar .support {
   margin-top: 20px;
+  color: var(--text-color);
 }
 
 /* Main Content and Header */
@@ -90,3 +91,4 @@
 .main-content {
   padding-top: 100px; /* Adjust as necessary to avoid overlap */
 }
+
