@@ -5,10 +5,11 @@ const MongoStore = require('connect-mongo');
 const multer = require('multer'); // Multer for file uploads
 const bodyParser = require('body-parser'); // For form data parsing
 const app = express();
+const env = require('dotenv').config(); //links .env file
 
 let port = 3000;
 let host = 'localhost';
-let url = "mongodb+srv://tzimnick:6728Final2024_@eventcluster.7ilvk.mongodb.net/?retryWrites=true&w=majority&appName=EventCluster"
+let url = `mongodb+srv://${process.env.USER}:${process.env.PASS}@eventcluster.7ilvk.mongodb.net/?retryWrites=true&w=majority&appName=EventCluster`
 
 
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true})
