@@ -1,10 +1,10 @@
 **Charlotte Event Sharing Web Application**  
 
 **Authors:**  
-Beren Brande 
-Donovan Andreu
-Kieran St-onge
-Thomas Zimnick
+Beren Brande, 
+Donovan Andreu,
+Kieran St-onge,
+Thomas Zimnick,
 
 **Project Overview:**  
   Charlotte is a busy area with lots of events going on. It would be extremely convenient to have an all-in-one app for different organizations to host their events on and for users (people in the area) to see these events posted. Users would then be able to RSVP for certain events so that the organization can get an      idea of the number of people to prepare for. 
