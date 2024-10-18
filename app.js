@@ -16,7 +16,7 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true})
     .then(() => {
         app.listen(port, host, () => {
             console.log('Server is running on port', port);
-            console.log('localhost:3000');
+            console.log(`Server is running on http://localhost:${port}`); //Yes you are required to use ` and not ' or ". Coding is fun.
         });
     });
 
