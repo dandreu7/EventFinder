@@ -15,6 +15,7 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true})
     .then(() => {
         app.listen(port, host, () => {
             console.log('Server is running on port', port);
+            console.log('localhost:3000');
         });
     });
 
@@ -29,7 +30,9 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-// In-memory user for authentication demonstration
+
+//Will be removed in future iteration
+  // In-memory user for authentication demonstration
 const user = { email: 'user@example.com', password: 'password123' };
 const users = []; // Simple in-memory array to store new users
 
