@@ -5,7 +5,7 @@ const MongoStore = require('connect-mongo');
 const multer = require('multer'); // Multer for file uploads
 const bodyParser = require('body-parser'); // For form data parsing
 const app = express();
-const env = require('dotenv').config(); //links .env file
+require('dotenv').config(); //links .env file
 
 let port = 3000;
 let host = 'localhost';
