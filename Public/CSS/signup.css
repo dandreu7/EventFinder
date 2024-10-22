@@ -1,0 +1,66 @@
+/* Container Styling */
+.container {
+  max-width: 600px;
+  background-color: #ffffff;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  margin-top: 40px; /* Adjust top margin as needed */
+}
+
+/* Form Title and Description */
+h1.text-center {
+  color: #00693e; /* UNC Charlotte green */
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+p.text-center {
+  color: #666666;
+  margin-bottom: 30px;
+}
+
+/* Form Group Styling */
+.form-group label {
+  font-weight: bold;
+  color: #333333;
+}
+
+.form-group input {
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+/* Green Submit Button Styling */
+.btn-green {
+  background-color: #00693e; /* UNC Charlotte green */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.btn-green:hover {
+  background-color: #00512c; /* Darker green on hover */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+    margin-top: 20px;
+  }
+
+  h1.text-center,
+  p.text-center {
+    font-size: 18px;
+  }
+
+  .btn-green {
+    padding: 8px;
+    font-size: 14px;
+  }
+}
