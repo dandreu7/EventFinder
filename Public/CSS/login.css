@@ -47,16 +47,25 @@ footer {
   bottom: 0;
 }
 
-button {
-    background-color: var(--primary-color) !important; /* UNC Charlotte Green */
-    border: none;
-    color: white !important;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
+/* Green Button Styling */
+.btn-green {
+  background-color: #00693e; /* UNC Charlotte green */
+  color: white;
+  border: none;
 }
 
-button:hover {
-    background-color: var(--secondary-color) !important; /* UNC Light Green color on hover */
+.btn-green:hover {
+  background-color: #00512c; /* Darker green for hover effect */
 }
 
+/* Green Link for Create Account */
+.create-account-link {
+  color: #00693e; /* UNC Charlotte green */
+  font-weight: bold; /* Make the link bold */
+  text-decoration: none; /* Remove underline */
+}
+
+.create-account-link:hover {
+  color: #00512c; /* Darker green on hover */
+  text-decoration: underline; /* Add underline on hover for emphasis */
+}
