@@ -15,6 +15,15 @@
     <link rel="stylesheet" href="/CSS/login.css" />
   </head>
   <body>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="/CSS/styles.css">
+    <!-- Page-specific CSS -->
+    <link rel="stylesheet" href="/CSS/login.css">
+
+</head>
+<body>
+
     <!-- Include Header Partial -->
     <%- include('../partials/header') %>
     <!-- Include Sidebar Partial -->
@@ -47,6 +56,19 @@
             />
           </div>
           <button type="submit" class="btn btn-primary btn-block">Login</button>
+    <!-- Main content area -->
+    <div class="content container d-flex flex-column justify-content-center align-items-center mt-5">
+        <h1>Login</h1>
+        <form action="/login" method="POST" class="w-50 mt-4">
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" id="email" name="email" required placeholder="Enter email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required placeholder="Password">
+            </div>
+            <button type="submit" class="btn btn-block btn-primary">Login</button>
         </form>
 
         <!-- Create Account Link -->

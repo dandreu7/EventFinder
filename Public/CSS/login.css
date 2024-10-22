@@ -1,37 +1,35 @@
-/* Make sure body and main-content stretch to fill the page */
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  margin: 0;
+
+/* Page-specific styles for the signup page */
+.container {
+    max-width: 500px;
+    margin-top: 50px;
 }
 
-.main-content {
-  flex-grow: 1; /* Takes up available space to push footer down */
-  margin-left: 250px; /* Avoid sidebar overlap */
-  padding: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+h1 {
+    color: #00693e; /* UNC Charlotte Green */
+    text-align: center;
+    margin-bottom: 10px;
 }
 
-/* Login box styling */
-.login-box {
-  background-color: #ffffff;
-  border-radius: 15px;
-  max-width: 400px;
-  width: 100%;
-  padding: 30px;
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+p.text-center {
+    color: #333;
+    font-size: 16px;
 }
 
-/* Footer adjustment */
-footer {
-  background-color: #f8f9fa;
-  text-align: center;
-  padding: 10px;
-  width: calc(100% - 250px); /* Account for sidebar width */
-  margin-left: 250px; /* Align with sidebar */
-  position: relative;
-  bottom: 0;
+form {
+    margin-top: 20px;
 }
+
+button {
+    background-color: #00693e; /* UNC Charlotte Green */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #d4af37; /* Gold color on hover */
+}
+
