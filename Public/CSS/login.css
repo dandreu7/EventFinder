@@ -9,42 +9,42 @@ html, body {
 }
 
 /* Flexbox layout for sticky footer */
+/* Make sure body and main-content stretch to fill the page */
 body {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
 }
 
-.content {
-    flex: 1; /* Take up available space */
+.main-content {
+  flex-grow: 1; /* Takes up available space to push footer down */
+  margin-left: 250px; /* Avoid sidebar overlap */
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+/* Login box styling */
+.login-box {
+  background-color: #ffffff;
+  border-radius: 15px;
+  max-width: 400px;
+  width: 100%;
+  padding: 30px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer adjustment */
 footer {
-    background-color: #f8f9fa;
-    text-align: center;
-    padding: 10px;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-}
-
-.container {
-    max-width: 500px;
-    margin-top: 50px;
-}
-
-h1 {
-    color: var(--primary-color) !important; /* UNC Charlotte Green */
-    text-align: center;
-    margin-bottom: 10px;
-}
-
-p.text-center {
-    color: #333;
-    font-size: 16px;
-}
-
-form {
-    margin-top: 20px;
+  background-color: #f8f9fa;
+  text-align: center;
+  padding: 10px;
+  width: calc(100% - 250px); /* Account for sidebar width */
+  margin-left: 250px; /* Align with sidebar */
+  position: relative;
+  bottom: 0;
 }
 
 button {

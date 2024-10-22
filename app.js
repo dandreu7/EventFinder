@@ -119,6 +119,12 @@ app.get('/signup', (req, res) => {
   res.render('user/signup'); // Render signup.ejs
 });
 
+// Profile page route
+app.get('/profile', (req, res) => {
+  res.render('user/profile'); // Render the profile.ejs file inside the user directory
+});
+
+
 // Handle signup form submission
 app.post('/signup', (req, res) => {
   const { email, password } = req.body;
@@ -153,7 +159,7 @@ app.post('/events/create', upload.single('logo'), (req, res) => {
 });
 
 // Start the server
-/*const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-   console.log(`Server is running on http://localhost:${PORT}`);
-});*/
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
