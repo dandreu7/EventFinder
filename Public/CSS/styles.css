@@ -8,7 +8,7 @@
   height: 100vh;
   padding: 20px;
   position: fixed;
-  top: 0; /* Align with header */
+  top: 0;
   display: flex;
   flex-direction: column;
 }
@@ -28,7 +28,15 @@
 .sidebar .menu li a {
   text-decoration: none;
   color: white;
-  font-size: 18px;
+  font-size: 25px;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar .menu li a .menu-icon {
+  margin-right: 10px;
+  font-size: 20px;
+  color: black; /* Set the icon color to black */
 }
 
 /* Ensure the last menu item (Dashboard) is pushed to the bottom */
@@ -39,12 +47,19 @@
 .sidebar .support {
   margin-top: 20px;
   color: var(--text-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 /* Main Content and Header */
 .main-content {
   margin-left: 250px; /* Align content next to the sidebar */
   padding: 20px;
+  flex: 1; /* Allow main content to take available space */
+  min-height: calc(
+    100vh - 100px
+  ); /* Adjust this value to account for header/footer height */
 }
 
 /* Header logo link styling */
@@ -72,7 +87,16 @@
 }
 
 .header .logo {
+  display: flex;
+  align-items: center;
+}
+
+/* Hamburger Menu */
+.hamburger {
   font-size: 24px;
+  cursor: pointer;
+  color: black; /* Set the hamburger icon color to black */
+  margin-right: 15px;
 }
 
 .user-profile {
@@ -85,10 +109,63 @@
   margin-left: 20px;
   font-size: 24px;
   cursor: pointer;
+  color: black; /* Set the icons in the header to black */
 }
 
 /* Add padding to avoid content overlapping with the fixed header */
 .main-content {
   padding-top: 100px; /* Adjust as necessary to avoid overlap */
+}
+
+/* Footer Styling */
+.footer {
+  background-color: #f8f9fa;
+  text-align: center;
+  padding: 10px;
+  width: calc(
+    100% - 250px
+  ); /* Ensure footer aligns with the main content, not the sidebar */
+  margin-left: 250px; /* Prevent the footer from overlapping the sidebar */
+  position: relative;
+  bottom: 0;
+  flex-shrink: 0; /* Ensure the footer doesn't shrink */
+}
+
+/* Ensure the footer is always at the bottom of the page */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  flex: 1;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+  .footer {
+    width: 100%;
+    margin-left: 0; /* For smaller screens, the sidebar might collapse, so footer takes full width */
+  }
+}
+
+.support {
+  display: flex;
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  margin-top: 20px;
+}
+
+.support-link {
+  color: white; /* Black text for the link */
+  text-decoration: none; /* Remove underline from the link */
+  font-size: 18px; /* Adjust font size as needed */
+  margin-right: 5px; /* Reduced or removed space between the link and icon */
+}
+
+.menu-icon {
+  font-size: 20px; /* Adjust icon size as needed */
+  color: white; /* White color for the question mark icon */
 }
 

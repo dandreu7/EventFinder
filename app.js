@@ -5,16 +5,18 @@ const MongoStore = require('connect-mongo');
 const multer = require('multer'); // Multer for file uploads
 const bodyParser = require('body-parser'); // For form data parsing
 const app = express();
+require('dotenv').config(); //links .env file
 
 let port = 3000;
 let host = 'localhost';
-let url = "mongodb+srv://tzimnick:6728Final2024_@eventcluster.7ilvk.mongodb.net/?retryWrites=true&w=majority&appName=EventCluster"
+let url = `mongodb+srv://${process.env.USER}:${process.env.PASS}@eventcluster.7ilvk.mongodb.net/?retryWrites=true&w=majority&appName=EventCluster`
 
 
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true})
     .then(() => {
         app.listen(port, host, () => {
             console.log('Server is running on port', port);
+            console.log(`Server is running on http://localhost:${port}`); //Yes you are required to use ` and not ' or ". Coding is fun.
         });
     });
 
@@ -29,7 +31,9 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-// In-memory user for authentication demonstration
+
+//Will be removed in future iteration
+  // In-memory user for authentication demonstration
 const user = { email: 'user@example.com', password: 'password123' };
 const users = []; // Simple in-memory array to store new users
 
@@ -115,6 +119,12 @@ app.get('/signup', (req, res) => {
   res.render('user/signup'); // Render signup.ejs
 });
 
+// Profile page route
+app.get('/profile', (req, res) => {
+  res.render('user/profile'); // Render the profile.ejs file inside the user directory
+});
+
+
 // Handle signup form submission
 app.post('/signup', (req, res) => {
   const { email, password } = req.body;
@@ -151,5 +161,5 @@ app.post('/events/create', upload.single('logo'), (req, res) => {
 // Start the server
 /*const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-   console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });*/

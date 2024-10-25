@@ -9,54 +9,63 @@ html, body {
 }
 
 /* Flexbox layout for sticky footer */
+/* Make sure body and main-content stretch to fill the page */
 body {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
 }
 
-.content {
-    flex: 1; /* Take up available space */
+.main-content {
+  flex-grow: 1; /* Takes up available space to push footer down */
+  margin-left: 250px; /* Avoid sidebar overlap */
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+/* Login box styling */
+.login-box {
+  background-color: #ffffff;
+  border-radius: 15px;
+  max-width: 400px;
+  width: 100%;
+  padding: 30px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer adjustment */
 footer {
-    background-color: #f8f9fa;
-    text-align: center;
-    padding: 10px;
-    position: relative;
-    bottom: 0;
-    width: 100%;
+  background-color: #f8f9fa;
+  text-align: center;
+  padding: 10px;
+  width: calc(100% - 250px); /* Account for sidebar width */
+  margin-left: 250px; /* Align with sidebar */
+  position: relative;
+  bottom: 0;
 }
 
-.container {
-    max-width: 500px;
-    margin-top: 50px;
+/* Green Button Styling */
+.btn-green {
+  background-color: #00693e; /* UNC Charlotte green */
+  color: white;
+  border: none;
 }
 
-h1 {
-    color: var(--primary-color) !important; /* UNC Charlotte Green */
-    text-align: center;
-    margin-bottom: 10px;
+.btn-green:hover {
+  background-color: #00512c; /* Darker green for hover effect */
 }
 
-p.text-center {
-    color: #333;
-    font-size: 16px;
+/* Green Link for Create Account */
+.create-account-link {
+  color: #00693e; /* UNC Charlotte green */
+  font-weight: bold; /* Make the link bold */
+  text-decoration: none; /* Remove underline */
 }
 
-form {
-    margin-top: 20px;
+.create-account-link:hover {
+  color: #00512c; /* Darker green on hover */
+  text-decoration: underline; /* Add underline on hover for emphasis */
 }
-
-button {
-    background-color: var(--primary-color) !important; /* UNC Charlotte Green */
-    border: none;
-    color: white !important;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: var(--secondary-color) !important; /* UNC Light Green color on hover */
-}
-
