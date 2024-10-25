@@ -1,0 +1,7 @@
+/* Colors Stylesheet for universal use */
+:root {
+    --primary-color: #1e6038 !important; /* Dark Charlotte Green*/
+    --secondary-color: #62a43c !important; /*Light Charlotte Green*/
+    --accent-color: #AB9A6C !important; /*Charlotte Gold*/
+    --text-color: #141E28 !important; /*Charlotte Text Black*/
+}

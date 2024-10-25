@@ -1,9 +1,9 @@
 **Charlotte Event Sharing Web Application**  
 
 **Authors:**  
-Beren Brande 
-Donovan Andreu
-Kieran St-onge
+Beren Brande, 
+Donovan Andreu,
+Kieran St-onge,
 Thomas Zimnick
 
 **Project Overview:**  
