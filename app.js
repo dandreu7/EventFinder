@@ -1,24 +1,70 @@
+KIERAN
+ongeyy
+Online
+
+TxBear — 10/25/2024 4:08 PM
+https://www.instagram.com/reel/DBVMpBxtrVH/?igsh=ZHQxbjIzcnlheGtz
+taylor_feldewey
+WE’RE COSTCO GUYS!!! #costco #costcoguys #chickenbake #doublechunkchocolatecookie
+Likes
+71355
+
+Instagram
+TxBear — Today at 10:36 AM
+https://www.instagram.com/reel/DBr773xPi1n/?igsh=MWcyM3Q0bWhkY3F0YQ==
+fallontonight
+@a.j.andbigjustice & @itztherealrizzler bring The BOOM! 💥 to Studio 6B! #FallonTonight
+Likes
+71065
+
+Instagram
+TxBear — Today at 4:22 PM
+iYDUwMQ14V1ir1vW
+TxBear — Today at 4:39 PM
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+TxBear — Today at 5:22 PM
+iYDUwMQ14V1ir1vW
+KIERAN — Today at 5:40 PM
+Au3cLC4XuWQLEoyl
+KIERAN — Today at 5:50 PM
+(base) KeenBook:eventfinder _kso13$ node app.js
+(node:31125) [MONGODB DRIVER] Warning: useNewUrlParser is a deprecated option: useNewUrlParser has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+(Use node --trace-warnings ... to show where the warning was created)
+(node:31125) [MONGODB DRIVER] Warning: useUnifiedTopology is a deprecated option: useUnifiedTopology has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+/Users/_kso13/Documents/GitHub/EventFinder/node_modules/mongoose/node_modules/mongodb/lib/cmap/connection.js:289
+                    throw new error_1.MongoServerError((object ??= document.toObject(bsonOptions)));
+                          ^
+
+MongoServerError: bad auth : Authentication failed.
+    at Connection.sendCommand (/Users/_kso13/Documents/GitHub/EventFinder/node_modules/mongoose/node_modules/mongodb/lib/cmap/connection.js:289:27)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Connection.command (/Users/_kso13/Documents/GitHub/EventFinder/node_modules/mongoose/node_modules/mongodb/lib/cmap/connection.js:312:26)
+    at async executeScram (/Users/_kso13/Documents/GitHub/EventFinder/node_modules/mongoose/node_modules/mongodb/lib/cmap/auth/scram.js:79:22)
+    at async ScramSHA1.auth (/Users/_kso13/Documents/GitHub/EventFinder/node_modules/mongoose/node_modules/mongodb/lib/cmap/auth/scram.js:39:16)
+    at async performInitialHandshake (/Users/_kso13/Documents/GitHub/EventFinder/node_modules/mongoose/node_modules/mongodb/lib/cmap/connect.js:104:13)
+    at async connect (/Users/_kso13/Documents/GitHub/EventFinder/node_modules/mongoose/node_modules/mongodb/lib/cmap/connect.js:24:9) {
+  errorResponse: {
+    ok: 0,
+    errmsg: 'bad auth : Authentication failed.',
+    code: 8000,
+    codeName: 'AtlasError'
+  },
+  ok: 0,
+TxBear — Today at 5:53 PM
 const express = require('express');
 const path = require('path');
-const mongoose = require('mongoose');
-const MongoStore = require('connect-mongo');
 const multer = require('multer'); // Multer for file uploads
 const bodyParser = require('body-parser'); // For form data parsing
 const app = express();
-require('dotenv').config(); //links .env file
-
-let port = 3000;
-let host = 'localhost';
-let url = `mongodb+srv://${process.env.USER}:${process.env.PASS}@eventcluster.7ilvk.mongodb.net/?retryWrites=true&w=majority&appName=EventCluster`
-
-
-mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true})
-    .then(() => {
-        app.listen(port, host, () => {
-            console.log('Server is running on port', port);
-            console.log(`Server is running on http://localhost:${port}`); //Yes you are required to use ` and not ' or ". Coding is fun.
-        });
-    });
+Expand
+message.txt
+7 KB
+﻿
+const express = require('express');
+const path = require('path');
+const multer = require('multer'); // Multer for file uploads
+const bodyParser = require('body-parser'); // For form data parsing
+const app = express();
 
 // Set up Multer for file uploads
 const storage = multer.diskStorage({
@@ -31,24 +77,22 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-
-//Will be removed in future iteration
-  // In-memory user for authentication demonstration
+// In-memory user for authentication demonstration
 const user = { email: 'user@example.com', password: 'password123' };
 const users = []; // Simple in-memory array to store new users
 
 // Event Data (for demonstration)
 const events = [
-  { id: 1, name: 'UNCC Campus Concert', date: '2024-09-25', time: '6:00 PM', location: 'UNC Charlotte Campus', description: 'Join us for an unforgettable concert at the Student Union!', admission: '20', imagePath: '' },
-  { id: 2, name: 'PNC Music Festival', date: '2024-09-30', time: '5:00 PM', location: 'PNC Music Pavilion', description: 'A weekend-long festival featuring popular artists from around the world!', admission: '50', imagePath: '/images/pnc_pavillion.jpg' },
-  { id: 3, name: 'Charlotte Car Show', date: '2024-10-05', time: '10:00 AM', location: 'Charlotte Convention Center', description: 'Check out the latest car models and meet fellow car enthusiasts!', admission: '15', imagePath: '' },
-  { id: 4, name: 'Food Truck Friday', date: '2024-10-10', time: '12:00 PM', location: 'Uptown Charlotte', description: 'Enjoy the best food trucks in Charlotte, featuring local delicacies and international flavors!', admission: '10', imagePath: '' },
-  { id: 5, name: 'UNCC Career Fair', date: '2024-10-15', time: '11:00 AM', location: 'UNC Charlotte Student Union', description: 'Meet recruiters from top companies and find your dream job!', admission: 'Free', imagePath: '' },
-  { id: 6, name: 'Carolina Panthers vs Falcons', date: '2024-10-20', time: '1:00 PM', location: 'Bank of America Stadium', description: 'Watch the Panthers take on the Falcons in an exciting NFL matchup!', admission: '100', imagePath: '/images/nfl_stadium.jpg' },
-  { id: 7, name: 'Latin Dance Night', date: '2024-10-22', time: '8:00 PM', location: 'The Fillmore Charlotte', description: 'An evening of salsa and bachata dancing with live music!', admission: '25', imagePath: '/images/uncc_latinX.jpg' },
-  { id: 8, name: 'Craft Beer Festival', date: '2024-10-28', time: '3:00 PM', location: 'BB&T Ballpark', description: 'Sample local craft beers from Charlotte\'s best breweries!', admission: '40', imagePath: '' },
-  { id: 9, name: 'UNCC Homecoming Parade', date: '2024-11-05', time: '12:00 PM', location: 'UNC Charlotte Campus', description: 'Celebrate UNCC Homecoming with a parade through campus!', admission: 'Free', imagePath: '' },
-  { id: 10, name: 'Winter Wonderland at Freedom Park', date: '2024-12-01', time: '5:00 PM', location: 'Freedom Park', description: 'A magical winter festival with ice skating, lights, and holiday treats!', admission: '25', imagePath: '' }
+  { id: 1, name: 'UNCC Campus Concert', date: '2024-09-25', time: '6:00 PM', location: 'UNC Charlotte Campus', description: 'Join us for an unforgettable concert at the Student Union!', admission: '20', imagePath: '/uploads/concert.jpg' },
+  { id: 2, name: 'PNC Music Festival', date: '2024-09-30', time: '5:00 PM', location: 'PNC Music Pavilion', description: 'A weekend-long festival featuring popular artists from around the world!', admission: '50', imagePath: '/uploads/festival.jpg' },
+  { id: 3, name: 'Charlotte Car Show', date: '2024-10-05', time: '10:00 AM', location: 'Charlotte Convention Center', description: 'Check out the latest car models and meet fellow car enthusiasts!', admission: '15', imagePath: '/uploads/carshow.jpg' },
+  { id: 4, name: 'Food Truck Friday', date: '2024-10-10', time: '12:00 PM', location: 'Uptown Charlotte', description: 'Enjoy the best food trucks in Charlotte, featuring local delicacies and international flavors!', admission: '10', imagePath: '/uploads/foodtruck.jpg' },
+  { id: 5, name: 'UNCC Career Fair', date: '2024-10-15', time: '11:00 AM', location: 'UNC Charlotte Student Union', description: 'Meet recruiters from top companies and find your dream job!', admission: 'Free', imagePath: '/uploads/careerfair.jpg' },
+  { id: 6, name: 'Carolina Panthers vs Falcons', date: '2024-10-20', time: '1:00 PM', location: 'Bank of America Stadium', description: 'Watch the Panthers take on the Falcons in an exciting NFL matchup!', admission: '100', imagePath: '/uploads/panthers.jpg' },
+  { id: 7, name: 'Latin Dance Night', date: '2024-10-22', time: '8:00 PM', location: 'The Fillmore Charlotte', description: 'An evening of salsa and bachata dancing with live music!', admission: '25', imagePath: '/uploads/dancenight.jpg' },
+  { id: 8, name: 'Craft Beer Festival', date: '2024-10-28', time: '3:00 PM', location: 'BB&T Ballpark', description: 'Sample local craft beers from Charlotte\'s best breweries!', admission: '40', imagePath: '/uploads/beerfest.jpg' },
+  { id: 9, name: 'UNCC Homecoming Parade', date: '2024-11-05', time: '12:00 PM', location: 'UNC Charlotte Campus', description: 'Celebrate UNCC Homecoming with a parade through campus!', admission: 'Free', imagePath: '/uploads/parade.jpg' },
+  { id: 10, name: 'Winter Wonderland at Freedom Park', date: '2024-12-01', time: '5:00 PM', location: 'Freedom Park', description: 'A magical winter festival with ice skating, lights, and holiday treats!', admission: '25', imagePath: '/uploads/winterwonderland.jpg' }
 ];
 
 // Middleware to parse form data
@@ -119,12 +163,6 @@ app.get('/signup', (req, res) => {
   res.render('user/signup'); // Render signup.ejs
 });
 
-// Profile page route
-app.get('/profile', (req, res) => {
-  res.render('user/profile'); // Render the profile.ejs file inside the user directory
-});
-
-
 // Handle signup form submission
 app.post('/signup', (req, res) => {
   const { email, password } = req.body;
@@ -159,7 +197,9 @@ app.post('/events/create', upload.single('logo'), (req, res) => {
 });
 
 // Start the server
-/*const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
-});*/
+});
+message.txt
+7 KB
