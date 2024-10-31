@@ -27,16 +27,16 @@
     <!-- Events Section -->
     <section class="events-section container mt-5">
       <h1 class="text-center">Upcoming Events in Charlotte</h1>
+      <!-- Search Bar -->
+       <div class="mb-4">
+        <input
+        type="text"
+        id="searchInput"
+        class="form-control"
+        placeholder="Search Events By Name"
+        />
+      </div>
       <div class="row">
-        <!-- Search Bar -->
-        <div class="mb-4">
-          <input
-          type="text"
-          id="searchInput"
-          class="form-control"
-          placeholder="Search Events By Name"
-          />
-        </div>
         <!-- Dynamically render events -->
         <% events.forEach(function(event) { %>
         <div class="col-lg-custom col-md-6 mb-4">
