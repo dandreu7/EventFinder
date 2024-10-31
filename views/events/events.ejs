@@ -39,7 +39,7 @@
       <div class="row">
         <!-- Dynamically render events -->
         <% events.forEach(function(event) { %>
-        <div class="col-lg-custom col-md-6 mb-4">
+        <div class="col-lg-custom col-md-6 mb-4" data-event-name="<%= event.name %>">
           <div class="card h-100">
             <img
               src="<%= event.imagePath %>"
@@ -197,13 +197,14 @@
 
         // Search Functionality
         const searchInput = document.getElementById("searchInput");
-        const eventCards = document.getElementById(".event-card");
+        const eventCards = document.querySelectorAll(".col-lg-custom");
 
         searchInput.addEventListener("input", function() {
           const searchTerm = this.value.toLowerCase();
+
           eventCards.forEach(card => {
-            const eventName = card.getAttribute("data-name");
-            card.style.display = eventName.includes(searchTerm) ? "" : "none";
+            const eventName = card.getAttribute("data-event-name").toLowerCase();
+            card.style.display = eventName.includes(searchTerm) ? "block" : "none";
           });
         });
       });
