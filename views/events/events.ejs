@@ -156,7 +156,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <!-- Script to Handle RSVP tracking -->
+    <!-- Script to Handle RSVP tracking and Search Functionality -->
     <script>
       // Handle RSVP tracking
       document.addEventListener("DOMContentLoaded", () => {
@@ -193,6 +193,18 @@
           } else {
             console.error(`RSVP button not found for event ID: ${eventId}`);
           }
+        });
+
+        // Search Functionality
+        const searchInput = document.getElementById("searchInput");
+        const eventCards = document.getElementById(".event-card");
+
+        searchInput.addEventListener("input", function() {
+          const searchTerm = this.value.toLowerCase();
+          eventCards.forEach(card => {
+            const eventName = card.getAttribute("data-name");
+            card.style.display = eventName.includes(searchTerm) ? "" : "none";
+          });
         });
       });
     </script>
