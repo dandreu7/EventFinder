@@ -15,7 +15,6 @@ let url = `mongodb+srv://${process.env.USER}:${process.env.PASS}@eventcluster.7i
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true})
     .then(() => {
         app.listen(port, host, () => {
-            console.log('Server is running on port', port);
             console.log(`Server is running on http://localhost:${port}`); //Yes you are required to use ` and not ' or ". Coding is fun.
         });
     });
