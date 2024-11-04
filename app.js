@@ -46,7 +46,7 @@ const events = [
     location: "UNC Charlotte Campus",
     description: "Join us for an unforgettable concert at the Student Union!",
     admission: "20",
-    imagePath: "",
+    imagePath: "/images/student_union.jpg",
   },
   {
     id: 2,
@@ -68,7 +68,7 @@ const events = [
     description:
       "Check out the latest car models and meet fellow car enthusiasts!",
     admission: "15",
-    imagePath: "",
+    imagePath: "/images/car_show.jpg",
   },
   {
     id: 4,
@@ -79,7 +79,7 @@ const events = [
     description:
       "Enjoy the best food trucks in Charlotte, featuring local delicacies and international flavors!",
     admission: "10",
-    imagePath: "",
+    imagePath: "/images/food_truck.jpg",
   },
   {
     id: 5,
@@ -89,7 +89,7 @@ const events = [
     location: "UNC Charlotte Student Union",
     description: "Meet recruiters from top companies and find your dream job!",
     admission: "Free",
-    imagePath: "",
+    imagePath: "/images/career_fair.jpg",
   },
   {
     id: 6,
@@ -117,10 +117,10 @@ const events = [
     name: "Craft Beer Festival",
     date: "2024-10-28",
     time: "3:00 PM",
-    location: "BB&T Ballpark",
+    location: "Truist Field",
     description: "Sample local craft beers from Charlotte's best breweries!",
     admission: "40",
-    imagePath: "",
+    imagePath: "/images/beer_festival.jpg",
   },
   {
     id: 9,
@@ -130,7 +130,7 @@ const events = [
     location: "UNC Charlotte Campus",
     description: "Celebrate UNCC Homecoming with a parade through campus!",
     admission: "Free",
-    imagePath: "",
+    imagePath: "/images/uncc_homecoming.jpg",
   },
   {
     id: 10,
@@ -141,7 +141,7 @@ const events = [
     description:
       "A magical winter festival with ice skating, lights, and holiday treats!",
     admission: "25",
-    imagePath: "",
+    imagePath: "/images/winter_wonderland.jpg",
   },
 ];
 
