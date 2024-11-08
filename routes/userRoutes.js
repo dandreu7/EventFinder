@@ -1,5 +1,6 @@
 const express = require('express');
 const controller = require('../controllers/userController');
+const { users } = require ('../testing/sampleUsers');
 
 const router = express.Router();
 
@@ -12,13 +13,15 @@ router.get('/login', (req, res) => {
 router.post('/login', (req, res) => {
     const { email, password } = req.body;
 
+    const user = users.find(u => u.email === email && u.password === password);
     // Validate credentials (in-memory user for simplicity)
-    if (email === user.email && password === user.password) {
+    if (user) {
         // If valid, redirect to profile page
         res.render('user/profile', { user });
     } else {
         // If invalid, send error message
-        res.send('Invalid email or password');
+        console.log("")
+        res.render('user/login', {error: 'Invalid login credentials'});
     }
 });
 
@@ -32,7 +35,6 @@ router.get('/profile', (req, res) => {
     res.render('user/profile'); // Render the profile.ejs file inside the user directory
 });
 
-
 // Handle signup form submission
 router.post('/signup', (req, res) => {
     const { email, password } = req.body;
@@ -42,7 +44,7 @@ router.post('/signup', (req, res) => {
     console.log('New Account Created:', { email, password });
 
     // Redirect to login after account creation
-    res.redirect('/login');
+    res.redirect('/users/login');
 });
 
 module.exports = router;
