@@ -28,6 +28,7 @@ const eventSchema = new mongoose.Schema({
     location: String,
     description: String,
     admission: String,
+    imagePath: String
   });
   
 const Event = mongoose.model("Event", eventSchema);
