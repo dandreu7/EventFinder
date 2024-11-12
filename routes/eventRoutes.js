@@ -1,34 +1,70 @@
 const express = require('express');
 const controller = require('../controllers/eventController');
 const { upload } = require('../middleware/fileUpload');
-const events = require('../testing/sampleData');
+const Event = require('../models/event');
+
 
 const router = express.Router();
-
-// Create Event page route
-router.get('/create', (req, res) => {
-    res.render('events/createEvent'); // Renders createEvent.ejs
-});
 
 // RSVP'd Events page route
 router.get("/rsvp'd", (req, res) => {
     res.render("events/rsvpEvent"); // Renders rsvpEvent.ejs
 });
 
+// Home page route with upcoming events
+router.get('/', async (req, res) => {
+  try {
+    const events = await Event.find().sort({ date: 1 });
+    const upcomingEvents = events.slice(0, 3);
+    res.render('index', { upcomingEvents });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error fetching events.");
+  }
+});
+
 // Events page route (shows list of all events)
-router.get('/', (req, res) => {
-    res.render('events/events', { events }); // Renders events.ejs and passes all events
+router.get('/events', async (req, res) => {
+  try {
+    const events = await Event.find();
+    res.render('events/events', { events });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error fetching events.");
+  }
+});
+
+router.get('/events/:id', (req, res) => {
+  const eventId = req.params.id;
+  
+  Event.findById(eventId)
+    .then(event => {
+      if (event) {
+        res.render('events/eventSingle', { event });
+      } else {
+        res.status(404).send('Event not found');
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).send('Error fetching event details.');
+    });
+});
+
+// Create Event page route
+router.get("/create/event", (req, res) => {
+  res.render("create/createEvent"); // Renders createEvent.ejs
 });
 
 // Single Event Details route (view individual event)
 router.get('/:id', (req, res) => {
     const eventId = parseInt(req.params.id);
-    const event = events.find(e => e.id === eventId);
+    const events = Event.find(e => e.id === eventId);
 
-    if (event) {
-        res.render('events/eventSingle', { event }); // Renders eventSingle.ejs and passes the event data
+    if (events) {
+        res.render('events/eventSingle', { events });
     } else {
-        res.status(404).send('Event not found'); // Handles case where event is not found
+        res.status(404).send('Event not found');
     }
 });
 
@@ -38,7 +74,7 @@ router.post('/create', upload.single('logo'), (req, res) => {
     const logoPath = req.file ? `/uploads/${req.file.filename}` : ''; // Uploaded file path
 
     // Logic to push the new event to the events array
-    const newEvent = {
+    const newEvent = new Event({
         id: events.length + 1, // Incremental ID
         name,
         date,
@@ -47,10 +83,10 @@ router.post('/create', upload.single('logo'), (req, res) => {
         imagePath: logoPath,
         admission: 'Free', // Default or custom value
         time: 'To be decided', // Default or custom value
-    };
-
-    events.push(newEvent); // Adds the new event to the array
-    res.redirect('/events'); // Redirects to events page after creating
-});
+    });
+    
+    newEvent.save();
+    res.redirect('/events');
+  });
 
 module.exports = router;
