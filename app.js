@@ -6,7 +6,6 @@ const userRoutes = require('./routes/userRoutes');
 const MongoStore = require('connect-mongo');
 // For form data parsing
 // const bodyParser = require('body-parser');
-const events = require('./testing/sampleData'); //for linking to sample data
 const app = express();
 require('dotenv').config(); //links .env file
 
