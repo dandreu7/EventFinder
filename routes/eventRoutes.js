@@ -69,24 +69,28 @@ router.get('/:id', (req, res) => {
 });
 
 // POST route to handle event creation with file upload
-router.post('/create', upload.single('logo'), (req, res) => {
-    const { name, date, location, description } = req.body;
-    const logoPath = req.file ? `/uploads/${req.file.filename}` : ''; // Uploaded file path
+router.post('/create/event', upload.single('logo'), async (req, res) => {
+  try {
+      const { title, date, location, description } = req.body;
+      const logoPath = req.file ? `/images/${req.file.filename}` : '';
 
-    // Logic to push the new event to the events array
-    const newEvent = new Event({
-        id: events.length + 1, // Incremental ID
-        name,
-        date,
-        location,
-        description,
-        imagePath: logoPath,
-        admission: 'Free', // Default or custom value
-        time: 'To be decided', // Default or custom value
-    });
-    
-    newEvent.save();
-    res.redirect('/events');
-  });
+      const newEvent = new Event({
+          title,
+          date,
+          location,
+          description,
+          imagePath: logoPath,
+          admission: 'Free',
+          time: 'To be decided',
+      });
+
+      await newEvent.save();
+      console.log("Event created successfully:", newEvent);
+      res.redirect('/events');
+  } catch (error) {
+      console.error("Error creating event:", error.message, error.stack); // Log full error stack
+      res.status(500).send(`Error creating event: ${error.message}`); // Send detailed error in response
+  }
+});
 
 module.exports = router;

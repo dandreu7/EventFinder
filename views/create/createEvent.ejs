@@ -29,8 +29,8 @@
       <h1 class="text-center">Create New Event</h1>
       <form action="/create/event" method="POST" enctype="multipart/form-data" class="mt-4">
         <div class="form-group">
-          <label for="eventName">Event Name</label>
-          <input type="text" class="form-control" id="eventName" name="name" placeholder="Enter event name" required />
+          <label for="title">Event Name</label>
+          <input type="text" class="form-control" id="title" name="title" placeholder="Enter event name" required />
         </div>
 
         <div class="form-group">
@@ -39,20 +39,20 @@
         </div>
 
         <div class="form-group">
-          <label for="eventLocation">Location</label>
-          <input type="text" class="form-control" id="eventLocation" name="location" placeholder="Enter event location" required />
+          <label for="location">Location</label>
+          <input type="text" class="form-control" id="location" name="location" placeholder="Enter event location" required />
         </div>
 
         <div class="form-group">
-          <label for="eventDescription">Description</label>
-          <textarea class="form-control" id="eventDescription" name="description" rows="4" placeholder="Enter event description" required></textarea>
+          <label for="description">Description</label>
+          <textarea class="form-control" id="description" name="description" rows="4" placeholder="Enter event description" required></textarea>
         </div>
-
+        
         <!-- Image Drop Zone -->
         <div class="form-group">
-          <label for="eventLogo">Upload Event Logo</label>
+          <label for="imagePath">Upload Event Logo</label>
           <div id="dropZone" class="drop-zone">
-            <input type="file" class="form-control-file" id="eventLogo" name="logo" accept="image/*" required />
+            <input type="file" class="form-control-file" id="imagePath" name="logo" accept="image/*" required />
             <p>Drag and drop your image here, or click to select one</p>
           </div>
         </div>
@@ -72,7 +72,7 @@
 <!-- Script to Handle Drag-and-Drop -->
 <script>
   const dropZone = document.getElementById('dropZone');
-  const fileInput = document.getElementById('eventLogo');
+  const fileInput = document.getElementById('imagePath');
 
   // Handle the 'click' event on the drop zone
   dropZone.addEventListener('click', () => fileInput.click());
