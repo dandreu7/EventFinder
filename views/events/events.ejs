@@ -39,15 +39,15 @@
       <div class="row">
         <!-- Dynamically render events -->
         <% events.forEach(function(event) { %>
-        <div class="col-lg-custom col-md-6 mb-4" data-event-name="<%= event.name %>">
+        <div class="col-lg-custom col-md-6 mb-4" data-event-name="<%= event.title %>">
           <div class="card h-100">
             <img
               src="<%= event.imagePath %>"
               class="card-img-top img-fluid"
-              alt="<%= event.name %>"
+              alt="<%= event.title %>"
             />
             <div class="card-body">
-              <h5 class="card-title"><%= event.name %></h5>
+              <h5 class="card-title"><%= event.title %></h5>
               <p class="card-text"><%= event.description %></p>
               <p class="card-text">
                 <small class="text-muted">Date: <%= event.date %></small>
@@ -80,7 +80,7 @@
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="eventModalLabel<%= event.id %>">
-                  <%= event.name %>
+                  <%= event.title %>
                 </h5>
                 <button
                   type="button"
@@ -100,7 +100,7 @@
                       <img
                         src="<%= event.imagePath %>"
                         class="img-fluid"
-                        alt="<%= event.name %>"
+                        alt="<%= event.title %>"
                       />
                       <% } else { %>
                       <p>No image available for this event</p>
