@@ -118,6 +118,9 @@
                       </p>
                       <p><strong>Description:</strong></p>
                       <p><%= event.description %></p>
+                      <% if (!event.isActive) { %>
+                        <p class="text-danger"><strong>This event has already passed.</strong></p>
+                      <% } %>
                     </div>
                     <div class="col-md-4 text-right">
                       <!-- RSVP button -->

@@ -27,6 +27,7 @@ router.get('/', async (req, res) => {
 router.get('/events', async (req, res) => {
   try {
     const events = await Event.find();
+    events.isActive = events.date > new Date();
     res.render('events/events', { events });
   } catch (err) {
     console.error(err);
@@ -34,21 +35,20 @@ router.get('/events', async (req, res) => {
   }
 });
 
-router.get('/events/:id', (req, res) => {
+router.get('/events/:id', async (req, res) => {
   const eventId = req.params.id;
-  
-  Event.findById(eventId)
-    .then(event => {
-      if (event) {
-        res.render('events/eventSingle', { event });
-      } else {
-        res.status(404).send('Event not found');
-      }
-    })
-    .catch(err => {
-      console.error(err);
-      res.status(500).send('Error fetching event details.');
-    });
+  try {  
+    const event = await Event.findById(eventId)
+    if (event) {
+      event.isActive = event.date > new Date();
+      res.render('events/eventSingle', { event });
+    } else {
+      res.status(404).send('Event not found');
+    }
+  } catch(err) {
+    console.error(err);
+    res.status(500).send('Error fetching event details.');
+  }
 });
 
 // Create Event page route

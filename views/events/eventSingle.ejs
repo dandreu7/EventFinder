@@ -37,6 +37,9 @@
           <p><strong>Location:</strong> <%= event.location %></p>
           <p><strong>Admission:</strong> $<%= event.admission %></p>
           <p><%= event.description %></p>
+          <% if (!event.isActive) { %>
+            <p class="text-danger"><strong>This event has already passed.</strong></p>
+          <% } %>
           <button id="rsvpButton<%=event.id%>" type="button" class="btn btn-primary">RSVP Now</button>
         </div>
       </div>
