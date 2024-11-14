@@ -50,7 +50,7 @@
               <h5 class="card-title"><%= event.title %></h5>
               <p class="card-text"><%= event.description %></p>
               <p class="card-text">
-                <small class="text-muted">Date: <%= event.date %></small>
+                <small class="text-muted">Date: <%= (event.date).toUTCString() %></small>
               </p>
               <p class="card-text">
                 <strong>Location:</strong> <%= event.location %>
@@ -111,7 +111,7 @@
                   <div class="row">
                     <div class="col-md-8">
                       <p><strong>Location:</strong> <%= event.location %></p>
-                      <p><strong>Date:</strong> <%= event.date %></p>
+                      <p><strong>Date:</strong> <%= (event.date).toUTCString() %></p>
                       <p><strong>Time:</strong> <%= event.time %></p>
                       <p>
                         <strong>Admission Fee:</strong> $<%= event.admission %>
