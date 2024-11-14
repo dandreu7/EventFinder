@@ -66,3 +66,7 @@ button.close:hover {
 .modal-footer {
     display: none; /* Hide the footer if there's no other button needed */
 }
+
+.container {
+    padding-top: 50px;
+}
