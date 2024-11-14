@@ -12,7 +12,7 @@ require('dotenv').config(); //links .env file
 
 let port = 3000;
 let host = 'localhost';
-let url = `mongodb+srv://${process.env.USER}:${process.env.PASS}@eventcluster.7ilvk.mongodb.net/?retryWrites=true&w=majority&appName=EventCluster`
+let url = `mongodb+srv://${process.env.USER}:${process.env.PASS}@eventcluster.7ilvk.mongodb.net/CLTSocial?retryWrites=true&w=majority&appName=EventCluster`
 
 // Middleware to parse form data
 app.use(express.urlencoded({ extended: true }));
