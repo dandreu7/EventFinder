@@ -22,7 +22,7 @@
 }
 
 .sidebar.collapsed {
-  width: 80px;
+  width: 70px;
 }
 
 .sidebar.collapsed .menu-text {
@@ -32,6 +32,11 @@
 .sidebar.collapsed .menu-icon {
   margin-left: 0;
   justify-content: center;
+}
+
+.sidebar.collapsed .support {
+  margin-left: 0;
+  justify-content: left;
 }
 
 .sidebar.collapsed ~ .main-content {
