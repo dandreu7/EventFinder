@@ -7,7 +7,7 @@ const Event = require('../models/event');
 const router = express.Router();
 
 // RSVP'd Events page route
-router.get("/rsvp'd", (req, res) => {
+router.get("/rsvp'd", async (req, res) => {
     res.render("events/rsvpEvent"); // Renders rsvpEvent.ejs
 });
 
@@ -52,20 +52,29 @@ router.get('/events/:id', async (req, res) => {
 });
 
 // Create Event page route
-router.get("/create/event", (req, res) => {
+router.get("/create/event", async (req, res) => {
   res.render("create/createEvent"); // Renders createEvent.ejs
 });
 
 // Single Event Details route (view individual event)
-router.get('/:id', (req, res) => {
-    const eventId = parseInt(req.params.id);
-    const events = Event.find(e => e.id === eventId);
+router.get('/:id', async (req, res) => {
+  try {
+    const eventId = req.params.id; // Use the ID directly as a string
+    const event = Event.findById(eventId); // Fetch the event by its MongoDB ObjectId
 
-    if (events) {
-        res.render('events/eventSingle', { events });
+    if (event) {
+      // Compare the event date to the current date and set isActive
+      const currentDate = new Date();
+      event.isActive = new Date(event.date) >= currentDate;
+
+      res.render('events/eventSingle', { event });
     } else {
-        res.status(404).send('Event not found');
+      res.status(404).send('Event not found');
     }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error fetching event details.');
+  }
 });
 
 // POST route to handle event creation with file upload
