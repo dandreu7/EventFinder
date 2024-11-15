@@ -1,36 +1,43 @@
 const express = require('express');
 const controller = require('../controllers/userController');
-const { users } = require('../testing/sampleUsers');
+const User = require('../models/user');
+
+
 const router = express.Router();
 
 // Login page route
-router.get('/login', (req, res) => {
+router.get('/login', async (req, res) => {
     const error = req.session.error; // Retrieve error message from session
     req.session.error = null; // Clear the error message from session
     res.render('user/login', { error }); // Pass the error to the template
 });
 
 // Handle login form submission and create session
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
-    // Validate credentials (using in-memory user data for simplicity)
-    const user = users.find(u => u.email === email && u.password === password);
-    if (user) {
-        // Store user ID in session to keep the user logged in
-        req.session.userId = user.email;
-
-        // Redirect to the profile page after successful login
-        res.redirect('/users/profile');
-    } else {
-        // Store error message in session and redirect to login
-        req.session.error = 'Invalid login credentials';
-        res.redirect('/users/login'); // Redirect to /login so it becomes a GET request
+    try {
+        const userEmail = req.params.email;
+        // Validate credentials (using in-memory user data for simplicity)
+        const user = await user.findById(userEmail);
+        if (user) {
+            // Store user ID in session to keep the user logged in
+            req.session.userEmail = user.email;
+            // Redirect to the profile page after successful login
+            res.redirect('/users/profile');
+        } else {
+            // Store error message in session and redirect to login
+            req.session.error = 'Invalid login credentials';
+            res.redirect('/users/login'); // Redirect to /login so it becomes a GET request
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Account does not exist.');
     }
 });
 
 // Logout route to destroy session
-router.post('/logout', (req, res) => {
+router.post('/logout', async (req, res) => {
     req.session.destroy((err) => {
         if (err) {
             console.error("Logout error:", err);
@@ -53,17 +60,23 @@ router.get('/profile', (req, res) => {
         return res.redirect('/users/login');
     }
     // Render the profile page if user is authenticated
-    const user = users.find(u => u.email === req.session.userId);
-    res.render('user/profile', { user });
+    const User = user.find(u => u.email === req.session.userId);
+    res.render('user/profile', { User });
 });
 
 // Handle signup form submission
-router.post('/signup', (req, res) => {
-    const { email, password } = req.body;
+router.post('/signup', async (req, res) => {
+    const { firstName, lastName, email, password } = req.body;
+
+    const newUser = new User({
+        firstName,
+        lastName,
+        email,
+        password,
+    });
 
     // Simulate saving the user to the database
-    users.push({ email, password });
-    console.log('New Account Created:', { email, password });
+    await newUser.save();
 
     // Redirect to login after account creation
     res.redirect('/users/login');

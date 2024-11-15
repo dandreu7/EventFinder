@@ -38,7 +38,7 @@ router.get('/events', async (req, res) => {
 router.get('/events/:id', async (req, res) => {
   const eventId = req.params.id;
   try {  
-    const event = await Event.findById(eventId)
+    const event = await Event.findById(eventId);
     if (event) {
       event.isActive = event.date > new Date();
       res.render('events/eventSingle', { event });

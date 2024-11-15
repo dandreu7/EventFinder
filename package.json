@@ -8,6 +8,7 @@
   },
   "private": true,
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
     "connect-mongo": "^5.1.0",
     "dotenv": "^16.4.5",
@@ -16,7 +17,6 @@
     "express-session": "^1.18.1",
     "mongodb": "^6.10.0",
     "mongoose": "^8.7.0",
-    "mongoose-promised": "^0.1.0",
     "multer": "^1.4.5-lts.1"
   }
 }
