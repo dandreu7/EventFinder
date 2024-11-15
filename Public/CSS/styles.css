@@ -21,6 +21,23 @@
   margin-top: 60px; /* Adjust this value to move the menu items down */
 }
 
+.sidebar.collapsed {
+  width: 80px;
+}
+
+.sidebar.collapsed .menu-text {
+  display: none;
+}
+
+.sidebar.collapsed .menu-icon {
+  margin-left: 0;
+  justify-content: center;
+}
+
+.sidebar.collapsed ~ .main-content {
+  margin-left: 80px;
+}
+
 .sidebar .menu li {
   margin-bottom: 20px;
 }
@@ -86,11 +103,6 @@
   z-index: 100;
 }
 
-.header .logo {
-  display: flex;
-  align-items: center;
-}
-
 /* Hamburger Menu */
 .hamburger {
   font-size: 24px;
@@ -113,7 +125,7 @@
 }
 
 /* Add padding to avoid content overlapping with the fixed header */
-.main-content {
+.hero-content {
   padding-top: 100px; /* Adjust as necessary to avoid overlap */
 }
 

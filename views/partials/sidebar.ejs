@@ -1,39 +1,72 @@
 <!-- Sidebar -->
 <aside class="sidebar">
-  <ul class="menu">
-      <li class="mt-auto">
-          <a href="/">
-              <i class="fas fa-home menu-icon"></i> <!-- FontAwesome Home icon -->
-              Dashboard
-          </a>
-      </li>
-      <li>
-          <a href="/events">
-              <i class="fas fa-calendar-alt menu-icon"></i> <!-- FontAwesome Calendar icon -->
-              Events
-          </a>
-      </li>
-      <li>
-          <a href="/create/event">
-              <i class="fas fa-plus-circle menu-icon"></i> <!-- FontAwesome Plus Circle icon -->
-              Create Event
-          </a>
-      </li>
-      <li>
-          <a href="/users/profile">
-              <i class="fas fa-chart-pie menu-icon"></i> <!-- FontAwesome Pie Chart icon -->
-              My Stats
-          </a>
-      </li>
-      <li>
-          <a href="/users/login">
-              <i class="fas fa-user menu-icon"></i> <!-- FontAwesome User icon -->
-              Login
-          </a>
-      </li>
+    <ul class="menu">
+        <li class="mt-auto">
+            <a href="/">
+                <i class="fas fa-home menu-icon"></i>
+                <span class="menu-text">Dashboard</span>
+            </a>
+        </li>
+    <li>
+        <a href="/events">
+            <i class="fas fa-calendar-alt menu-icon"></i> <!-- FontAwesome Calendar icon -->
+            <span class="menu-text">Events</span>
+        </a>
+    </li>
+    <li>
+        <a href="/create/event">
+            <i class="fas fa-plus-circle menu-icon"></i> <!-- FontAwesome Plus Circle icon -->
+            <span class="menu-text">Create Event</span>
+        </a>
+    </li>
+    <li>
+        <a href="/users/profile">
+            <i class="fas fa-chart-pie menu-icon"></i> <!-- FontAwesome Pie Chart icon -->
+            <span class="menu-text">My Stats</span>
+        </a>
+    </li>
+    <li>
+        <a href="/users/login">
+            <i class="fas fa-user menu-icon"></i> <!-- FontAwesome User icon -->
+            <span class="menu-text">Login</span>
+        </a>
+    </li>
   </ul>
   <div class="support">
-    <a href="/support" class="support-link">Help & Support</a>
-    <i class="fas fa-question-circle menu-icon"></i> <!-- FontAwesome Question Mark icon -->
+    <a href="/support" class="support-link"><span class="menu-text">Help & Support</span></a>
+    <i class="fas fa-question-circle menu-icon"></i>
   </div>
 </aside>
+
+<!-- JavaScript to handle the toggle -->
+<script>
+    function toggleSidebar() {
+        document.querySelector('.sidebar').classList.toggle('collapsed');
+    }
+
+     // Function to toggle sidebar and save state
+    function toggleSidebar() {
+        const sidebar = document.querySelector('.sidebar');
+        sidebar.classList.toggle('collapsed');
+
+        // Save the sidebar state to localStorage
+        if (sidebar.classList.contains('collapsed')) {
+        localStorage.setItem('sidebarState', 'collapsed');
+        } else {
+        localStorage.setItem('sidebarState', 'expanded');
+        }
+    }
+
+    // Check if the sidebar should be collapsed on page load
+    window.onload = function() {
+        const sidebar = document.querySelector('.sidebar');
+        const savedState = localStorage.getItem('sidebarState');
+
+        // Apply saved state if it exists
+        if (savedState === 'collapsed') {
+        sidebar.classList.add('collapsed');
+        } else {
+        sidebar.classList.remove('collapsed');
+        }
+    }
+</script>
