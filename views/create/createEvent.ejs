@@ -23,9 +23,9 @@
     <%- include('../partials/header') %>
         <!-- Include Sidebar Partial -->
     <%- include('../partials/sidebar') %>
-
+    <div class = main-content>
     <!-- Create Event Form -->
-    <section class="container mt-5">
+     <section class="container mt-5">
       <h1 class="text-center">Create New Event</h1>
       <form action="/create/event" method="POST" enctype="multipart/form-data" class="mt-4">
         <div class="form-group">
@@ -60,6 +60,7 @@
         <button type="submit" class="btn btn-primary">Create Event</button>
       </form>
     </section>
+  </div>
 
     <!-- Include Footer Partial -->
     <%- include('../partials/footer') %>
