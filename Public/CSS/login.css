@@ -2,6 +2,8 @@
 
 /*Imports colors*/
 @import url('colors.css');
+/*Login Screen Background*/
+@import url('bgImg.css');
 
 /* Ensure the page takes up the full height of the window */
 html, body {
@@ -24,6 +26,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 5;
+  position: relative;
 }
 
 /* Login box styling */
@@ -34,6 +38,7 @@ body {
   width: 100%;
   padding: 30px;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  z-index: 5;
 }
 
 /* Footer adjustment */
