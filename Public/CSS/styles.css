@@ -58,7 +58,7 @@
 .sidebar .menu li a .menu-icon {
   margin-right: 10px;
   font-size: 20px;
-  color: black; /* Set the icon color to black */
+  color: white; /* Set the icon color to white */
 }
 
 /* Ensure the last menu item (Dashboard) is pushed to the bottom */
@@ -175,7 +175,7 @@ body {
 }
 
 .support-link {
-  color: white; /* Black text for the link */
+  color: white; /* White text for the link */
   text-decoration: none; /* Remove underline from the link */
   font-size: 18px; /* Adjust font size as needed */
   margin-right: 5px; /* Reduced or removed space between the link and icon */
