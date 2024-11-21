@@ -83,18 +83,27 @@
 
     <!-- Script to Check Login Status and Toggle UI -->
     <script>
-      fetch("/users/status")
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.loggedIn) {
-            document.getElementById("login-link").style.display = "none";
-            document.getElementById("logout-link").style.display = "block";
-          } else {
-            document.getElementById("login-link").style.display = "block";
-            document.getElementById("logout-link").style.display = "none";
-          }
-        })
-        .catch((error) => console.error("Error fetching login status:", error));
+      document.addEventListener("DOMContentLoaded", () => {
+        fetch("/users/status")
+          .then((response) => response.json())
+          .then((data) => {
+            const loginLink = document.getElementById("login-link");
+            const logoutLink = document.getElementById("logout-link");
+
+            if (loginLink && logoutLink) {
+              if (data.loggedIn) {
+                loginLink.style.display = "none";
+                logoutLink.style.display = "block";
+              } else {
+                loginLink.style.display = "block";
+                logoutLink.style.display = "none";
+              }
+            }
+          })
+          .catch((error) =>
+            console.error("Error fetching login status:", error)
+          );
+      });
     </script>
   </body>
 </html>
