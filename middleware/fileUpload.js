@@ -13,5 +13,5 @@ const storage = multer.diskStorage({
 
 // File Filter may need to be added in future
 exports.upload = multer({storage,
-                        limits:{fileSize: 2*1024*1024}
+                        limits:{fileSize: 4*1024*1024}
 });
