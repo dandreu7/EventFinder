@@ -40,7 +40,7 @@
         <div class="row">
           <!-- Dynamically render events -->
           <% events.forEach(function(event) { %>
-          <div class="col-lg-custom col-md-6 mb-4" data-event-name="<%= event.title %>">
+          <div class="col-lg-custom col-md-6 mb-4" data-event-name="<%= event.title %>" data-event-desc="<%= event.description %>">
             <div class="card h-100">
               <img
                 src="<%= event.imagePath %>"
@@ -209,7 +209,8 @@
 
           eventCards.forEach(card => {
             const eventName = card.getAttribute("data-event-name").toLowerCase();
-            card.style.display = eventName.includes(searchTerm) ? "block" : "none";
+            const eventDesc = card.getAttribute("data-event-desc").toLowerCase();
+            card.style.display = (eventName.includes(searchTerm) || eventDesc.includes(searchTerm)) ? "block" : "none";
           });
         });
       });
