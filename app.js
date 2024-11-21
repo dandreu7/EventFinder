@@ -48,9 +48,14 @@ app.use('/users', userRoutes);
 // Events Page route
 app.use('/', eventRoutes);
 
-mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
+        console.log("Connected to MongoDB successfully.");
         app.listen(port, host, () => {
-            console.log(`Server is running on http://localhost:${port}`); //Yes you are required to use ` and not ' or ". Coding is fun.
+            console.log(`Server is running on http://${host}:${port}`);
         });
+    })
+    .catch((err) => {
+        console.error("Error connecting to MongoDB:", err);
+        process.exit(1); // Exit the process if unable to connect
     });
