@@ -1,5 +1,8 @@
 /* Page-Specific CSS for index.html */
 
+/*Imports colors*/
+@import url('colors.css');
+
 /* Hero Section */
 .hero-section {
     margin-top: 20px;
@@ -12,23 +15,23 @@
   
   /* Upcoming Events Section */
   .upcoming-events h2 {
-    color: #00693e;
+    color: var(--primary-color);
   }
   
   .card {
-    border: 2px solid #00693e;
+    border: 2px solid var(--primary-color);
   }
   
   .card-title {
-    color: #00693e;
+    color: var(--primary-color);
   }
   
   .btn-primary {
-    background-color: #00693e;
-    border-color: #00693e;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
   }
   
   .btn-primary:hover {
-    background-color: #d4af37;
-    border-color: #d4af37;
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
   }

@@ -3,36 +3,55 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%= event.name %> - Event Details</title>
+    <title><%= event.title %> - Event Details</title>
 
     <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <link 
+      rel="stylesheet"  
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"  
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
     <!-- Global CSS -->
     <link rel="stylesheet" href="/CSS/styles.css" />
     <!-- Page-specific CSS -->
-    <link rel="stylesheet" href="/CSS/singleEvent.css" />
+    <link rel="stylesheet" href="/CSS/eventSingle.css" />
   </head>
   <body>
     <!-- Include Header Partial -->
     <%- include('../partials/header') %>
+    <%- include('../partials/sidebar') %>
 
     <!-- Single Event Details Section -->
-    <section class="container mt-5">
-      <div class="row">
-        <div class="col-md-6">
-          <img src="<%= event.imagePath %>" alt="<%= event.name %>" class="img-fluid" />
+    <div class = main-content>
+      <section class="container mt-5">
+        <div class="row">
+          <div class="col-md-6">
+            <img src="<%= event.imagePath %>" alt="<%= event.title %>" class="img-fluid" />
+          </div>
+          <div class="col-md-6">
+            <h1><%= event.title %></h1>
+            <p><strong>Date:</strong>
+              <% if (event.date) { %>
+                <%= new Date(event.date).toUTCString() %>
+              <% } else { %>
+                <em>Date not available</em>
+              <% } %>
+            </p>
+            <p><strong>Time:</strong> <%= event.time %></p>
+            <p><strong>Location:</strong> <%= event.location %></p>
+            <p><strong>Admission:</strong> $<%= event.admission %></p>
+            <p><%= event.description %></p>
+            <% if (!event.isActive) { %>
+              <p class="text-danger"><strong>This event has already passed.</strong></p>
+            <% } %>
+            <button id="rsvpButton<%=event.id%>" type="button" class="btn btn-primary">RSVP Now</button>
+          </div>
         </div>
-        <div class="col-md-6">
-          <h1><%= event.name %></h1>
-          <p><strong>Date:</strong> <%= event.date %></p>
-          <p><strong>Time:</strong> <%= event.time %></p>
-          <p><strong>Location:</strong> <%= event.location %></p>
-          <p><strong>Admission:</strong> $<%= event.admission %></p>
-          <p><%= event.description %></p>
-          <a href="#" class="btn btn-primary">RSVP</a>
-        </div>
-      </div>
-    </section>
+      </section>
+    </div>
 
     <!-- Include Footer Partial -->
     <%- include('../partials/footer') %>
@@ -41,5 +60,49 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Script to Handle RSVP tracking -->
+<script>
+
+  // Handle RSVP tracking
+    document.addEventListener("DOMContentLoaded", () => {
+
+      const eventId = "<%=event.id%>";
+      const rsvpButton = document.getElementById(`rsvpButton${eventId}`);
+
+      if (rsvpButton) {
+        const rsvpStatus = localStorage.getItem(`rsvpPressed${eventId}`) === "true";
+
+        updateRsvpButton(rsvpButton, rsvpStatus);
+        rsvpButton.removeEventListener("click", toggleRsvp);
+        rsvpButton.addEventListener("click", toggleRsvp);
+
+        function toggleRsvp() {
+          const isConfirmed = rsvpButton.classList.contains("btn-success");
+          const newStatus = !isConfirmed;
+
+          localStorage.setItem(`rsvpPressed${eventId}`, newStatus);
+          updateRsvpButton(rsvpButton, newStatus);
+        }
+
+        function updateRsvpButton(button, Confirmed) {
+          if (Confirmed) {
+            rsvpButton.textContent = "RSVP Confirmed";
+            rsvpButton.classList.remove("btn-primary");
+            rsvpButton.classList.add("btn-success");
+          }
+          else {
+            rsvpButton.textContent = "RSVP Now";
+            rsvpButton.classList.remove("btn-success");
+            rsvpButton.classList.add("btn-primary");
+          }
+        }
+      }
+      else {
+        console.error(`RSVP button not found for event ID: ${eventId}`);
+      }
+    });
+  
+</script>
   </body>
 </html>

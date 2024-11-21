@@ -1,69 +1,88 @@
 /* Custom styles for the Events page */
 .events-section {
-    padding: 20px 0;
-  }
+  padding: 20px 0;
+}
+
+.events-section h1 {
+  color: #00693e; /* UNC Charlotte Green */
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.card {
+  border: 2px solid #00693e; /* Green border */
+  transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: scale(1.05);
   
-  .events-section h1 {
-    color: #00693e; /* UNC Charlotte Green */
-    text-align: center;
-    margin-bottom: 40px;
-  }
+}
+
+.card-title {
+  color: #00693e;
   
-  .card {
-    border: 2px solid #00693e; /* Green border */
-    transition: transform 0.3s ease-in-out;
-  }
-  
-  .card:hover {
-    transform: scale(1.05);
-  }
-  
-  .card-title {
-    color: #00693e;
-  }
-  
-  .btn-primary {
-    background-color: #00693e;
-    border-color: #00693e;
-  }
-  
-  .btn-primary:hover {
-    background-color: #d4af37; /* Gold on hover */
-    border-color: #d4af37;
-  }
-  
-  /* Custom column size for 5 per row */
+}
+
+.btn-primary {
+  background-color: #00693e;
+  border-color: #00693e;
+}
+
+.btn-success {
+  background-color: #00693e;
+  border-color: #00693e;
+}
+
+.btn-primary.focus, .btn-primary:focus {
+  background-color: #00693e;
+  border-color: #00693e;
+  box-shadow: 0 0 0 .2rem rgba(72, 180, 97, .5);
+}
+
+.btn-primary:hover {
+  background-color: #d4af37; /* Gold on hover */
+  border-color: #d4af37;
+  box-shadow: 0 0 0 .2rem rgba(212, 175, 55, .5);
+}
+
+.btn-success:hover {
+  background-color: #d4af37; /* Gold on hover */
+  border-color: #d4af37;
+  box-shadow: 0 0 0 .2rem rgba(212, 175, 55, .5);
+}
+
+/* Custom column size for 5 per row */
+.col-lg-custom {
+  flex: 0 0 20%; /* 20% width for 5 columns */
+  max-width: 20%;
+}
+
+@media (max-width: 1200px) {
   .col-lg-custom {
-    flex: 0 0 20%; /* 20% width for 5 columns */
-    max-width: 20%;
+    flex: 0 0 33.33%; /* 3 columns on medium screens */
+    max-width: 33.33%;
   }
-  
-  @media (max-width: 1200px) {
-    .col-lg-custom {
-      flex: 0 0 33.33%; /* 3 columns on medium screens */
-      max-width: 33.33%;
-    }
+}
+
+@media (max-width: 900px) {
+  .col-lg-custom {
+    flex: 0 0 50%; /* 2 columns on small screens */
+    max-width: 50%;
   }
-  
-  @media (max-width: 900px) {
-    .col-lg-custom {
-      flex: 0 0 50%; /* 2 columns on small screens */
-      max-width: 50%;
-    }
+}
+
+@media (max-width: 600px) {
+  .col-lg-custom {
+    flex: 0 0 100%; /* 1 column on very small screens */
+    max-width: 100%;
   }
-  
-  @media (max-width: 600px) {
-    .col-lg-custom {
-      flex: 0 0 100%; /* 1 column on very small screens */
-      max-width: 100%;
-    }
-  }
-  
-  .card {
-    margin-bottom: 20px; /* Space between cards */
-  }
-  
-  .row {
-    overflow: hidden; /* This can cause content to be hidden if there are more items */
-  }
-  
+}
+
+.card {
+  margin-bottom: 20px; /* Space between cards */
+}
+
+.row {
+  overflow: hidden; /* This can cause content to be hidden if there are more items */
+}

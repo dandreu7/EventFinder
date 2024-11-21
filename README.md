@@ -1,9 +1,9 @@
 **Charlotte Event Sharing Web Application**  
 
 **Authors:**  
-Beren Brande 
-Donovan Andreu
-Kieran St-onge
+Beren Brande, 
+Donovan Andreu,
+Kieran St-onge,
 Thomas Zimnick
 
 **Project Overview:**  
@@ -25,3 +25,5 @@ Thomas Zimnick
 
 **Team Progress:**
   Basic Webapp Skeleton Created. Site folder structure initialized. Basic site styling. MVC Pattern setup.
+
+

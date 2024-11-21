@@ -1,35 +1,76 @@
+/* Page-specific styles for the login page */
 
-/* Page-specific styles for the signup page */
-.container {
-    max-width: 500px;
-    margin-top: 50px;
+/*Imports colors*/
+@import url('colors.css');
+/*Login Screen Background*/
+@import url('bgImg.css');
+
+/* Ensure the page takes up the full height of the window */
+html, body {
+    height: 100%;
 }
 
-h1 {
-    color: #00693e; /* UNC Charlotte Green */
-    text-align: center;
-    margin-bottom: 10px;
+/* Flexbox layout for sticky footer */
+/* Make sure body and main-content stretch to fill the page */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
 }
 
-p.text-center {
-    color: #333;
-    font-size: 16px;
+.main-content {
+  flex-grow: 1; /* Takes up available space to push footer down */
+  margin-left: 250px; /* Avoid sidebar overlap */
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+  position: relative;
 }
 
-form {
-    margin-top: 20px;
+/* Login box styling */
+.login-box {
+  background-color: #ffffff;
+  border-radius: 15px;
+  max-width: 400px;
+  width: 100%;
+  padding: 30px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  z-index: 5;
 }
 
-button {
-    background-color: #00693e; /* UNC Charlotte Green */
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
+/* Footer adjustment */
+footer {
+  background-color: #f8f9fa;
+  text-align: center;
+  padding: 10px;
+  width: calc(100% - 250px); /* Account for sidebar width */
+  margin-left: 250px; /* Align with sidebar */
+  position: relative;
+  bottom: 0;
 }
 
-button:hover {
-    background-color: #d4af37; /* Gold color on hover */
+/* Green Button Styling */
+.btn-green {
+  background-color: #00693e; /* UNC Charlotte green */
+  color: white;
+  border: none;
 }
 
+.btn-green:hover {
+  background-color: #00512c; /* Darker green for hover effect */
+}
+
+/* Green Link for Create Account */
+.create-account-link {
+  color: #00693e; /* UNC Charlotte green */
+  font-weight: bold; /* Make the link bold */
+  text-decoration: none; /* Remove underline */
+}
+
+.create-account-link:hover {
+  color: #00512c; /* Darker green on hover */
+  text-decoration: underline; /* Add underline on hover for emphasis */
+}

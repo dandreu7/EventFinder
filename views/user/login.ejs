@@ -1,73 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
-
+    <!-- FontAwesome CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
     <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
     <!-- Global CSS -->
-    <link rel="stylesheet" href="/CSS/styles.css">
-    <!-- Page-specific CSS -->
-    <link rel="stylesheet" href="/CSS/login.css">
-    <style>
-      /* Ensure the page takes up the full height of the window */
-      html, body {
-        height: 100%;
-      }
-
-      /* Flexbox layout for sticky footer */
-      body {
-        display: flex;
-        flex-direction: column;
-      }
-
-      .content {
-        flex: 1; /* Take up available space */
-      }
-
-      footer {
-        background-color: #f8f9fa;
-        text-align: center;
-        padding: 10px;
-        position: relative;
-        bottom: 0;
-        width: 100%;
-      }
-    </style>
-</head>
-<body>
-
+    <link rel="stylesheet" href="/CSS/styles.css" />
+    <!-- Login-specific CSS -->
+    <link rel="stylesheet" href="/CSS/login.css" />
+  </head>
+  <body>
     <!-- Include Header Partial -->
     <%- include('../partials/header') %>
+    <!-- Include Sidebar Partial -->
+    <%- include('../partials/sidebar') %>
 
-    <!-- Main content area -->
-    <div class="content container d-flex flex-column justify-content-center align-items-center mt-5">
-        <h1>Login</h1>
-        <form action="/login" method="POST" class="w-50 mt-4">
-            <div class="form-group">
-                <label for="email">Email address</label>
-                <input type="email" class="form-control" id="email" name="email" required placeholder="Enter email">
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" name="password" required placeholder="Password">
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">Login</button>
+    <div class="main-content d-flex justify-content-center align-items-center">
+      <div class="login-box">
+        <h1 class="text-center">Login</h1>
+
+        <!-- Error Message Display -->
+        <% if (error && error.trim() !== '') { %>
+        <div class="alert alert-danger" role="alert"><%= error %></div>
+        <% } %>
+
+        <form action="/users/login" method="POST" class="mt-4 w-100">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              name="email"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              name="password"
+              placeholder="Enter your password"
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn-green btn-block">Login</button>
         </form>
+
+        <!-- Create Account Link -->
+        <div class="text-center mt-3">
+          <p>
+            Don't have an account?
+            <a href="/users/signup" class="create-account-link"
+              >Create an Account</a
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="slideshow-container">
+      <div class="slide" style="background-image: url('/images/bgImgs/LandingBG 1.png')"></div>
+      <div class="slide" style="background-image: url('/images/bgImgs/LandingBG 2.png')"></div>
     </div>
 
     <!-- Include Footer Partial -->
-    <footer>
-      <%- include('../partials/footer') %>
-    </footer>
+    <!-- include('../partials/footer') -->
+
 
     <!-- JavaScript -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="/JS/bgImg.js" defer></script>
 
-</body>
+    <!-- Script to Check Login Status and Toggle UI -->
+    <script>
+      fetch("/users/status")
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.loggedIn) {
+            document.getElementById("login-link").style.display = "none";
+            document.getElementById("logout-link").style.display = "block";
+          } else {
+            document.getElementById("login-link").style.display = "block";
+            document.getElementById("logout-link").style.display = "none";
+          }
+        })
+        .catch((error) => console.error("Error fetching login status:", error));
+    </script>
+  </body>
 </html>
