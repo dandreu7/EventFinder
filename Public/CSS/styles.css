@@ -175,7 +175,7 @@ body {
 }
 
 .support-link {
-  color: white; /* Black text for the link */
+  color: white; /* White text for the link */
   text-decoration: none; /* Remove underline from the link */
   font-size: 18px; /* Adjust font size as needed */
   margin-right: 5px; /* Reduced or removed space between the link and icon */
