@@ -1,4 +1,4 @@
-@import url('colors.css');
+@import url("colors.css");
 
 /* Sidebar Styling */
 .sidebar {
@@ -58,7 +58,7 @@
 .sidebar .menu li a .menu-icon {
   margin-right: 10px;
   font-size: 20px;
-  color: black; /* Set the icon color to black */
+  color: white; /* Set the icon color to black */
 }
 
 /* Ensure the last menu item (Dashboard) is pushed to the bottom */
@@ -112,7 +112,7 @@
 .hamburger {
   font-size: 24px;
   cursor: pointer;
-  color: black; /* Set the hamburger icon color to black */
+  color: white !important; /* Set the hamburger icon color to black */
   margin-right: 15px;
 }
 
@@ -185,4 +185,3 @@ body {
   font-size: 20px; /* Adjust icon size as needed */
   color: white; /* White color for the question mark icon */
 }
-
