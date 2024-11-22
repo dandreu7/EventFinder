@@ -60,28 +60,24 @@ router.get('/events/:id', async (req, res) => {
 // POST route to handle event creation with file upload
 router.post('/create/event', upload.single('logo'), async (req, res) => {
   try {
-      const userEmail = req.session.userEmail;  // Get the email from session
-      const hostUser = req.session._id;  // Get the user ID from session
+    if (!req.session || !req.session.userEmail) {
+      return res.status(401).send('You must be logged in to create an event.');
+    }
+    const { title, date, location, description } = req.body;
+    const logoPath = req.file ? `/images/${req.file.filename}` : '';
 
-      if (!userEmail || !hostUser) {
-        res.status(401).send("You must be logged in to create an event.");
-      }
+    const newEvent = new Event({
+        title,
+        date,
+        location,
+        description,
+        imagePath: logoPath,
+        userEmail: req.session.userEmail,  // Store the email of the user who created the event
+    });
 
-      const { title, date, location, description } = req.body;
-      const logoPath = req.file ? `/images/${req.file.filename}` : '';
-
-      const newEvent = new Event({
-          title,
-          date,
-          location,
-          description,
-          imagePath: logoPath,
-          userEmail: req.session.userEmail,  // Store the email of the user who created the event
-      });
-
-      await newEvent.save();
-      console.log("Event created successfully:", newEvent);
-      res.redirect('/events');
+    await newEvent.save();
+    console.log("Event created successfully:", newEvent);
+    res.redirect('/events');
   } catch (error) {
       console.error("Error creating event:", error.message, error.stack); // Log full error stack
       res.status(500).send(`Error creating event: ${error.message}`); // Send detailed error in response
