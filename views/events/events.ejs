@@ -113,12 +113,9 @@
                       <div class="col-md-8">
                         <p><strong>Location:</strong> <%= event.location %></p>
                         <p><strong>Date:</strong> <%= (event.date).toUTCString() %></p>
-                        <p><strong>Time:</strong> <%= event.time %></p>
-                        <p>
-                          <strong>Admission Fee:</strong> $<%= event.admission %>
-                        </p>
                         <p><strong>Description:</strong></p>
                         <p><%= event.description %></p>
+                        <p><strong>Owner:</strong> <%= event.userEmail %></p>
                         <% if (!event.isActive) { %>
                           <p class="text-danger"><strong>This event has already passed.</strong></p>
                         <% } %>

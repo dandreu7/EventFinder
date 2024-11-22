@@ -2,17 +2,19 @@ const express = require('express');
 const controller = require('../controllers/userController');
 const User = require('../models/user');
 
-
 const router = express.Router();
 
 // Login page route
 router.get('/login', async (req, res) => {
+    if (req.session && req.session.userId) {
+        return res.redirect('/');
+    }
     const error = req.session.error; // Retrieve error message from session
     req.session.error = null; // Clear the error message from session
     res.render('user/login', { error }); // Pass the error to the template
+    
 });
 
-// Handle login form submission and create session
 // Handle login form submission and create session
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
@@ -39,6 +41,10 @@ router.post('/login', async (req, res) => {
 
         // Store user ID in session
         req.session.userId = user._id;
+
+        req.session.userEmail = user.email; // Store user email in session
+        req.session.hostUser = user._id; // Store user ID (or another identifier) in session
+
 
         // Redirect to profile
         res.redirect('/users/profile');
