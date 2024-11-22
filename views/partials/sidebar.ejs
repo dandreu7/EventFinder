@@ -7,53 +7,85 @@
                 <span class="menu-text">Dashboard</span>
             </a>
         </li>
-    <li>
-        <a href="/events">
-            <i class="fas fa-calendar-alt menu-icon"></i> <!-- FontAwesome Calendar icon -->
-            <span class="menu-text">Events</span>
+        <li>
+            <a href="/events">
+                <i class="fas fa-calendar-alt menu-icon"></i>
+                <span class="menu-text">Events</span>
+            </a>
+        </li>
+        <li>
+            <a href="/create/event">
+                <i class="fas fa-plus-circle menu-icon"></i>
+                <span class="menu-text">Create Event</span>
+            </a>
+        </li>
+        <li>
+            <a href="/users/profile">
+                <i class="fas fa-chart-pie menu-icon"></i>
+                <span class="menu-text">My Stats</span>
+            </a>
+        </li>
+        <!-- Login Link -->
+        <li id="sidebar-login-item">
+            <a href="/users/login">
+                <i class="fas fa-user menu-icon"></i>
+                <span class="menu-text">Login</span>
+            </a>
+        </li>
+        <!-- Sign Out Link -->
+        <li id="sidebar-signout-item" style="display: none;">
+            <a href="javascript:void(0);" onclick="logout()">
+                <i class="fas fa-sign-out-alt menu-icon"></i>
+                <span class="menu-text">Sign Out</span>
+            </a>
+        </li>
+    </ul>
+    <div class="support">
+        <a href="/support" class="support-link">
+            <span class="menu-text">Help & Support</span>
         </a>
-    </li>
-    <li>
-        <a href="/create/event">
-            <i class="fas fa-plus-circle menu-icon"></i> <!-- FontAwesome Plus Circle icon -->
-            <span class="menu-text">Create Event</span>
-        </a>
-    </li>
-    <li>
-        <a href="/users/profile">
-            <i class="fas fa-chart-pie menu-icon"></i> <!-- FontAwesome Pie Chart icon -->
-            <span class="menu-text">My Stats</span>
-        </a>
-    </li>
-    <li>
-        <a href="/users/login">
-            <i class="fas fa-user menu-icon"></i> <!-- FontAwesome User icon -->
-            <span class="menu-text">Login</span>
-        </a>
-    </li>
-  </ul>
-  <div class="support">
-    <a href="/support" class="support-link"><span class="menu-text">Help & Support</span></a>
-    <i class="fas fa-question-circle menu-icon"></i>
-  </div>
+        <i class="fas fa-question-circle menu-icon"></i>
+    </div>
 </aside>
 
-<!-- JavaScript to handle the toggle -->
+<!-- JavaScript to handle login status -->
 <script>
-    function toggleSidebar() {
-        document.querySelector('.sidebar').classList.toggle('collapsed');
+    // Function to check login status and update the sidebar buttons
+    fetch("/users/status")
+    .then((response) => response.json())
+    .then((data) => {
+        const loginLinkItem = document.getElementById("sidebar-login-item");
+        const signoutLinkItem = document.getElementById("sidebar-signout-item");
+
+        // Show or hide the login and sign-out links based on login status
+        if (data.loggedIn) {
+            loginLinkItem.style.display = "none";  // Hide the login item
+            signoutLinkItem.style.display = "block"; // Show the sign-out item
+        } else {
+            loginLinkItem.style.display = "block"; // Show the login item
+            signoutLinkItem.style.display = "none";  // Hide the sign-out item
+        }
+    })
+    .catch((error) => console.error("Error fetching login status:", error));
+
+    function logout() {
+    fetch('/users/logout', { method: 'POST' })
+        .then(() => {
+        window.location.reload(); // Refresh the page to update button visibility
+        })
+        .catch((error) => console.error('Error logging out:', error));
     }
 
-     // Function to toggle sidebar and save state
+    // Function to toggle sidebar visibility
     function toggleSidebar() {
         const sidebar = document.querySelector('.sidebar');
         sidebar.classList.toggle('collapsed');
 
         // Save the sidebar state to localStorage
         if (sidebar.classList.contains('collapsed')) {
-        localStorage.setItem('sidebarState', 'collapsed');
+            localStorage.setItem('sidebarState', 'collapsed');
         } else {
-        localStorage.setItem('sidebarState', 'expanded');
+            localStorage.setItem('sidebarState', 'expanded');
         }
     }
 
@@ -62,11 +94,10 @@
         const sidebar = document.querySelector('.sidebar');
         const savedState = localStorage.getItem('sidebarState');
 
-        // Apply saved state if it exists
         if (savedState === 'collapsed') {
-        sidebar.classList.add('collapsed');
+            sidebar.classList.add('collapsed');
         } else {
-        sidebar.classList.remove('collapsed');
+            sidebar.classList.remove('collapsed');
         }
     }
 </script>

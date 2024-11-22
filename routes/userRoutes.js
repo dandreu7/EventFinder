@@ -13,26 +13,59 @@ router.get('/login', async (req, res) => {
 });
 
 // Handle login form submission and create session
+// Handle login form submission and create session
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        const userEmail = req.params.email;
-        // Validate credentials (using in-memory user data for simplicity)
-        const user = await user.findById(userEmail);
-        if (user) {
-            // Store user ID in session to keep the user logged in
-            req.session.userEmail = user.email;
-            // Redirect to the profile page after successful login
-            res.redirect('/users/profile');
-        } else {
-            // Store error message in session and redirect to login
+        // Normalize email to lowercase
+        const normalizedEmail = email.toLowerCase();
+
+        // Find user by normalized email
+        const user = await User.findOne({ email: normalizedEmail });
+        console.log('User found:', user);
+        if (!user) {
             req.session.error = 'Invalid login credentials';
-            res.redirect('/users/login'); // Redirect to /login so it becomes a GET request
+            return res.redirect('/users/login');
         }
+
+        // Compare passwords
+        const isMatch = await user.comparePassword(password);
+        console.log('Password match:', isMatch);
+        if (!isMatch) {
+            req.session.error = 'Invalid login credentials';
+            return res.redirect('/users/login');
+        }
+
+        // Store user ID in session
+        req.session.userId = user._id;
+
+        // Redirect to profile
+        res.redirect('/users/profile');
     } catch (err) {
-        console.error(err);
-        res.status(500).send('Account does not exist.');
+        console.error('Login error:', err);
+        res.status(500).send('Error logging in.');
+    }
+});
+
+
+
+// Profile page route
+router.get('/profile', async (req, res) => {
+    if (!req.session.userId) {
+        return res.redirect('/users/login'); // Redirect if not logged in
+    }
+
+    try {
+        const user = await User.findById(req.session.userId);
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+
+        res.render('user/profile', { user });
+    } catch (err) {
+        console.error('Error fetching profile:', err);
+        res.status(500).send('Internal Server Error');
     }
 });
 
@@ -54,33 +87,50 @@ router.get('/signup', (req, res) => {
 });
 
 // Profile page route (protected)
-router.get('/profile', (req, res) => {
+router.get('/profile', async (req, res) => {
     if (!req.session.userId) {
-        // If not logged in, redirect to login page
-        return res.redirect('/users/login');
+        return res.redirect('/users/login'); // Redirect if not logged in
     }
-    // Render the profile page if user is authenticated
-    const User = user.find(u => u.email === req.session.userId);
-    res.render('user/profile', { User });
+
+    try {
+        const user = await User.findById(req.session.userId);
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+
+        res.render('user/profile', { user });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error fetching profile.');
+    }
 });
 
 // Handle signup form submission
 router.post('/signup', async (req, res) => {
     const { firstName, lastName, email, password } = req.body;
 
+    // Normalize email to lowercase
+    const normalizedEmail = email.toLowerCase();
+
     const newUser = new User({
         firstName,
         lastName,
-        email,
+        email: normalizedEmail, // Save the normalized email
         password,
     });
 
-    // Simulate saving the user to the database
-    await newUser.save();
+    try {
+        // Save the user to the database
+        await newUser.save();
 
-    // Redirect to login after account creation
-    res.redirect('/users/login');
+        // Redirect to login after account creation
+        res.redirect('/users/login');
+    } catch (err) {
+        console.error('Signup error:', err);
+        res.status(500).send('Error creating account.');
+    }
 });
+
 
 // Route to check if the user is logged in
 router.get('/status', (req, res) => {
