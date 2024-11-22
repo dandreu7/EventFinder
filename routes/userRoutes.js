@@ -2,11 +2,13 @@ const express = require('express');
 const controller = require('../controllers/userController');
 const User = require('../models/user');
 
-
 const router = express.Router();
 
 // Login page route
 router.get('/login', async (req, res) => {
+    if (req.session && req.session.userId) {
+        return res.status(404).render('404', { title: 'Page Not Found' });
+    }
     const error = req.session.error; // Retrieve error message from session
     req.session.error = null; // Clear the error message from session
     res.render('user/login', { error }); // Pass the error to the template
