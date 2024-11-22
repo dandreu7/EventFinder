@@ -98,7 +98,7 @@
 .sidebar .support {
   margin-top: auto; /* Push support section to the bottom */
   text-align: center; /* Center align support */
-  align-items: center;
+  
   padding: 10px 20px; /* Add padding for spacing */
 }
 

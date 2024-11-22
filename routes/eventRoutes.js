@@ -59,14 +59,12 @@ router.get('/events/:id', async (req, res) => {
 
 // POST route to handle event creation with file upload
 router.post('/create/event', upload.single('logo'), async (req, res) => {
-  const { email } = req.body;
   try {
-      const user = await User.findOne( email );
-      const userEmail = user.email;  // Get the email from session
-      const hostUser = user._id;  // Get the user ID from session
+      const userEmail = req.session.userEmail;  // Get the email from session
+      const hostUser = req.session._id;  // Get the user ID from session
 
       if (!userEmail || !hostUser) {
-        return res.status(401).send("You must be logged in to create an event.");
+        res.status(401).send("You must be logged in to create an event.");
       }
 
       const { title, date, location, description } = req.body;
