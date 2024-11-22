@@ -6,11 +6,6 @@ const Event = require('../models/event');
 
 const router = express.Router();
 
-// RSVP'd Events page route
-router.get("/rsvp'd", async (req, res) => {
-    res.render("events/rsvpEvent"); // Renders rsvpEvent.ejs
-});
-
 // Home page route with upcoming events
 router.get('/', async (req, res) => {
   try {
