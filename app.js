@@ -45,8 +45,8 @@ app.use('/', eventRoutes);
 
 app.use((req, res) => {
     res.status(404).render('404', { title: 'Page Not Found' });
-  });
-  
+});
+
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log("Connected to MongoDB successfully.");
