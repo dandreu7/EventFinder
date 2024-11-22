@@ -73,6 +73,10 @@
   margin: 0 auto; /* Center icons in collapsed state */
 }
 
+.sidebar.collapsed ~ .main-content {
+  margin-left: 80px;
+}
+
 /* Support Section */
 .sidebar .support {
   margin-top: auto; /* Push support section to the bottom */
