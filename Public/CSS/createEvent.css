@@ -1,3 +1,6 @@
+/*Imports colors*/
+@import url('colors.css');
+
 /* Base styles for the Create Event form */
 .container {
     max-width: 600px;
@@ -6,7 +9,7 @@
   }
   
   h1 {
-    color: #00693e; /* UNC Charlotte Green */
+    color: var(--primary-color) !important; /* UNC Charlotte Green */
     text-align: center;
     margin-bottom: 20px;
   }
@@ -17,31 +20,31 @@
   
   .form-control {
     border-radius: 5px;
-    border: 2px solid #00693e; /* Green border */
+    border: 2px solid var(--primary-color)!important; /* Green border */
     margin-bottom: 15px;
   }
   
   .form-control-file {
-    border: 2px solid #d4af37; /* Gold border for the file input */
+    border: 2px solid var(--accent-color) !important; /* Gold border for the file input */
   }
   
-  button {
-    background-color: #00693e;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
+button {
+  background-color: var(--primary-color) !important;
+  border: none;
+  color: white !important;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
   
   button:hover {
-    background-color: #d4af37;
+    background-color: var(--secondary-color) !important;
+    color: black !important;
   }
   
   /* Styles for the drag-and-drop file upload */
   .drop-zone {
-    border: 2px dashed #00693e;
+    border: 2px dashed var(--primary-color) !important;
     border-radius: 10px;
     text-align: center;
     padding: 20px;
@@ -50,11 +53,11 @@
   }
   
   .drop-zone--active {
-    background-color: #e0ffe0; /* Light green background when active */
+    background-color: var(--secondary-color) !important; /* Light green background when active */
   }
   
   .drop-zone p {
-    color: #00693e;
+    color: var(--primary-color) !important;
     font-size: 14px;
     margin: 0;
   }
