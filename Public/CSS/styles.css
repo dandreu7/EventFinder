@@ -126,6 +126,7 @@
   display: flex;
   align-items: center; /* Vertically align content */
   justify-content: center; /* Horizontally center "CLT Social" */
+  text-align: center;
   padding: 10px 20px;
   background-color: var(--primary-color); /* UNC Charlotte green */
   color: white;
@@ -138,12 +139,16 @@
 }
 
 .header-content {
-  margin-left: 250px; /* Offset content to avoid overlapping the sidebar */
-  width: calc(100% - 250px); /* Adjust width to account for the sidebar */
+  margin-left: 70px; /* Offset content to avoid overlapping the sidebar */
+  display: flex;
+  flex-direction: column;
+  /*width: calc(100% - 250px); /* Adjust width to account for the sidebar */
   text-align: center; /* Center the content horizontally */
 }
 
 .logo-link {
+  display: flex;
+  flex-direction: column;
   text-decoration: none;
   font-size: 28px;
   font-weight: bold;
