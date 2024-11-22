@@ -40,10 +40,12 @@
         </li>
         <!-- Sign Out Link -->
         <li id="sidebar-signout-item" style="display: none;">
-            <a href="javascript:void(0);" onclick="logout()">
-                <i class="fas fa-sign-out-alt menu-icon"></i>
-                <span class="menu-text">Sign Out</span>
-            </a>
+            <form id="logout-form" action="/users/logout" method="POST">
+                <button type="submit">
+                    <i class="fas fa-sign-out-alt menu-icon"></i>
+                    <span class="menu-text">Sign Out</span>
+                </button>
+            </form>
         </li>
     </ul>
     <div class="support">

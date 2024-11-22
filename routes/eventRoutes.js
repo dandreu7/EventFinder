@@ -2,6 +2,7 @@ const express = require('express');
 const controller = require('../controllers/eventController');
 const { upload } = require('../middleware/fileUpload');
 const Event = require('../models/event');
+const User = require('../models/user');
 
 
 const router = express.Router();
@@ -30,29 +31,13 @@ router.get('/events', async (req, res) => {
   }
 });
 
-router.get('/events/:id', async (req, res) => {
-  const eventId = req.params.id;
-  try {  
-    const event = await Event.findById(eventId);
-    if (event) {
-      event.isActive = event.date > new Date();
-      res.render('events/eventSingle', { event });
-    } else {
-      res.status(404).send('Event not found');
-    }
-  } catch(err) {
-    console.error(err);
-    res.status(500).send('Error fetching event details.');
-  }
-});
-
 // Create Event page route
 router.get("/create/event", async (req, res) => {
   res.render("create/createEvent"); // Renders createEvent.ejs
 });
 
 // Single Event Details route (view individual event)
-router.get('/:id', async (req, res) => {
+router.get('/events/:id', async (req, res) => {
   try {
     const eventId = req.params.id; // Use the ID directly as a string
     const event = Event.findById(eventId); // Fetch the event by its MongoDB ObjectId
@@ -74,7 +59,16 @@ router.get('/:id', async (req, res) => {
 
 // POST route to handle event creation with file upload
 router.post('/create/event', upload.single('logo'), async (req, res) => {
+  const { email } = req.body;
   try {
+      const user = await User.findOne( email );
+      const userEmail = user.email;  // Get the email from session
+      const hostUser = user._id;  // Get the user ID from session
+
+      if (!userEmail || !hostUser) {
+        return res.status(401).send("You must be logged in to create an event.");
+      }
+
       const { title, date, location, description } = req.body;
       const logoPath = req.file ? `/images/${req.file.filename}` : '';
 
@@ -84,8 +78,7 @@ router.post('/create/event', upload.single('logo'), async (req, res) => {
           location,
           description,
           imagePath: logoPath,
-          admission: 'Free',
-          time: 'To be decided',
+          userEmail: req.session.userEmail,  // Store the email of the user who created the event
       });
 
       await newEvent.save();

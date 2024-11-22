@@ -13,7 +13,6 @@
   display: flex;
   flex-direction: column;
   z-index: 1000; /* Keep the sidebar above other elements */
-  transition: width 0.3s ease; /* Smooth transition for collapsing */
 }
 
 /* Sidebar Hamburger Styling */
@@ -56,6 +55,24 @@
   font-size: 20px;
 }
 
+.sidebar .menu li form button {
+  all: unset; /* Reset all default styles */
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px; /* Match the padding of other links */
+  cursor: pointer;
+}
+
+.sidebar .menu li form button .menu-icon {
+  margin-right: 10px;
+  font-size: 20px;
+  color: white;
+}
+
+
 /* Collapsed Sidebar */
 .sidebar.collapsed {
   width: 70px;
@@ -81,6 +98,7 @@
 .sidebar .support {
   margin-top: auto; /* Push support section to the bottom */
   text-align: center; /* Center align support */
+  align-items: center;
   padding: 10px 20px; /* Add padding for spacing */
 }
 
