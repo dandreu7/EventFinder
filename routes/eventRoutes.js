@@ -23,8 +23,9 @@ router.get('/', async (req, res) => {
 router.get('/events', async (req, res) => {
   try {
     const events = await Event.find();
+    const userEmail = req.session.userEmail || null;
     events.isActive = events.date > new Date();
-    res.render('events/events', { events });
+    res.render('events/events', { events, userEmail });
   } catch (err) {
     console.error(err);
     res.status(500).send("Error fetching events.");
@@ -39,23 +40,28 @@ router.get("/create/event", async (req, res) => {
 // Single Event Details route (view individual event)
 router.get('/events/:id', async (req, res) => {
   try {
-    const eventId = req.params.id; // Use the ID directly as a string
-    const event = Event.findById(eventId); // Fetch the event by its MongoDB ObjectId
+    const eventId = req.params.id;
+    const event = await Event.findById(eventId);
 
-    if (event) {
-      // Compare the event date to the current date and set isActive
-      const currentDate = new Date();
-      event.isActive = new Date(event.date) >= currentDate;
-
-      res.render('events/eventSingle', { event });
-    } else {
-      res.status(404).send('Event not found');
+    if (!event) {
+      return res.status(404).send('Event not found');
     }
+
+    // Check if the logged-in user owns the event
+    const userEmail = req.session && req.session.userEmail;
+    const isOwner = userEmail && userEmail === event.userEmail;
+
+    res.render('events/eventSingle', {
+      event,
+      isOwner, // Explicitly pass true or false
+    });
   } catch (err) {
-    console.error(err);
+    console.error('Error fetching event details:', err);
     res.status(500).send('Error fetching event details.');
   }
 });
+
+
 
 // POST route to handle event creation with file upload
 router.post('/create/event', upload.single('logo'), async (req, res) => {
@@ -83,5 +89,35 @@ router.post('/create/event', upload.single('logo'), async (req, res) => {
       res.status(500).send(`Error creating event: ${error.message}`); // Send detailed error in response
   }
 });
+
+// Route to delete an event
+router.delete('/events/:id', async (req, res) => {
+  try {
+    const eventId = req.params.id;
+    const event = await Event.findById(eventId);
+
+    // Check if event exists and if the user is the owner
+    if (!event) {
+      return res.status(404).send('Event not found');
+    }
+
+    if (event.userEmail !== req.session.userEmail) {
+      return res.status(403).send('You are not authorized to delete this event');
+    }
+
+    // Use findByIdAndDelete to remove the event
+    await Event.findByIdAndDelete(eventId);
+    res.status(200).send('Event deleted successfully');
+  } catch (error) {
+    console.error('Error deleting event:', error);
+    res.status(500).send('Error deleting event');
+  }
+});
+
+
+
+
+
+
 
 module.exports = router;

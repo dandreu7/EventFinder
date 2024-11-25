@@ -119,6 +119,9 @@
                         <% if (!event.isActive) { %>
                           <p class="text-danger"><strong>This event has already passed.</strong></p>
                         <% } %>
+                        <% if (userEmail && event.userEmail === userEmail) { %>
+                          <button onclick="deleteEvent('<%= event._id %>')" class="btn btn-danger">Delete Event</button>
+                        <% } %>
                       </div>
                       <div class="col-md-4 text-right">
                         <!-- RSVP button -->
@@ -210,6 +213,28 @@
           });
         });
       });
+
+      async function deleteEvent(eventId) {
+        if (confirm('Are you sure you want to delete this event?')) {
+          try {
+            const response = await fetch(`/events/${eventId}`, {
+              method: 'DELETE',
+            });
+      
+            if (response.ok) {
+              alert('Event deleted successfully!');
+              window.location.href = '/events';
+            } else {
+              const errorText = await response.text();
+              alert('Error: ' + errorText);
+            }
+          } catch (err) {
+            console.error('Error deleting event:', err);
+            alert('An unexpected error occurred.');
+          }
+        }
+      }
+      
     </script>
   </body>
 </html>

@@ -46,6 +46,9 @@
               <p class="text-danger"><strong>This event has already passed.</strong></p>
             <% } %>
             <button id="rsvpButton<%=event.id%>" type="button" class="btn btn-primary">RSVP Now</button>
+            <% if (isOwner) { %>
+              <button onclick="deleteEvent('<%= event._id %>')" class="btn btn-danger">Delete Event</button>
+            <% } %>
           </div>
         </div>
       </section>
@@ -100,6 +103,31 @@
         console.error(`RSVP button not found for event ID: ${eventId}`);
       }
     });
+    
+    async function deleteEvent(eventId) {
+      if (confirm('Are you sure you want to delete this event?')) {
+        try {
+          const response = await fetch(`/events/${eventId}`, { method: 'DELETE' });
+    
+          if (response.ok) {
+            alert('Event deleted successfully!');
+            window.location.href = '/events';
+          } else if (response.status === 401) {
+            alert('You must be logged in to delete this event.');
+          } else if (response.status === 403) {
+            alert('You are not authorized to delete this event.');
+          } else {
+            const errorText = await response.text();
+            alert('Error: ' + errorText);
+          }
+        } catch (err) {
+          console.error('Error deleting event:', err);
+          alert('An unexpected error occurred.');
+        }
+      }
+    }
+    
+    
   
 </script>
   </body>
