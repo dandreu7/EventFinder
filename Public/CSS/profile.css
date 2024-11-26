@@ -2,56 +2,116 @@
 
 /* Custom styles for the profile page */
 .profile-container {
-    background-color: white;
-    border-radius: 20px;
-    padding: 30px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    max-width: 800px;
-    margin: auto;
-    margin-top: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .profile-image {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    background-color: #e0e0e0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 50px;
-    color: #ffffff;
-    margin-right: 30px;
-  }
-  .profile-details {
-    flex-grow: 1;
-  }
-  .profile-details h2 {
-    font-weight: bold;
-    font-size: 24px;
-  }
-  .profile-details p {
-    margin-bottom: 8px;
-  }
-  .profile-details .edit-btn {
-    background-color: #00693e;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 20px;
-  }
-  .profile-details .edit-btn:hover {
-    background-color: #d4af37;
-  }
-  .bio-section {
-    margin-bottom: 15px;
-  }
-  .profile-label {
-    font-weight: bold;
-  }
-  
+  background-color: white;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: auto;
+  margin-top: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.profile-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 50px;
+  color: #ffffff;
+  margin-right: 30px;
+}
+.profile-details {
+  flex-grow: 1;
+}
+.profile-details h2 {
+  font-weight: bold;
+  font-size: 24px;
+}
+.profile-details p {
+  margin-bottom: 8px;
+}
+.profile-details .edit-btn {
+  background-color: #00693e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+.profile-details .edit-btn:hover {
+  background-color: #d4af37;
+}
+.bio-section {
+  margin-bottom: 15px;
+}
+.profile-label {
+  font-weight: bold;
+}
+
+/* Modal custom styles */
+.modal-content {
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  border-bottom: 2px solid #d4af37;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+}
+
+.form-control-lg {
+  font-size: 1.2rem;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+textarea.form-control-lg {
+  resize: none;
+}
+
+button {
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+/* Update Save Changes Button */
+.save-btn {
+  background-color: #00693e; /* Your main green color */
+  color: #fff;
+  border: none;
+}
+
+.save-btn:hover {
+  background-color: #004c2b; /* A darker shade of the green for hover effect */
+  color: #fff;
+}
+
+/* Save Changes Button Custom Styling */
+.save-btn {
+  background-color: #00693e; /* Main green color */
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.save-btn:hover {
+  background-color: #004c2b; /* A slightly darker green for hover effect */
+  transform: scale(1.05); /* Subtle scaling effect */
+}
