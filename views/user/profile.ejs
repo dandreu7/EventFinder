@@ -24,18 +24,16 @@
           <i class="fas fa-user-circle"></i>
         </div>
         <div class="profile-details">
-          <h2>FIRSTNAME LASTNAME</h2>
+          <h2><%= user.firstName + " " + user.lastName%></h2>
           <div class="bio-section">
             <p class="profile-label">Bio:</p>
             <p>Lorem ipsum dolor sit amet consectetur. In amet massa viverra id imperdiet. Luctus dui dolor et accumsan. Nisl consequat fermentum aliquam sollicitudin. At porttitor elit tincidunt habitasse leo.</p>
           </div>
-          <p class="profile-label">Organization/Company:</p>
-          <p>Company Name</p>
-          <p class="profile-label">E-Mail:</p>
-          <p>Email@email.com</p>
-          <p class="profile-label">Phone:</p>
-          <p>+1 000-000-0000</p>
+          <p>Email:</p>
+          <p class="profile-label"><%= user.email%></p>
           <button class="edit-btn">Edit</button>
+          <p></p>
+          <p></p>
         </div>
       </div>
     </div>
