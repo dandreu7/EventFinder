@@ -33,6 +33,12 @@
         Register your organization to manage and create events on our platform.
       </p>
 
+      <% if (errorMessage) { %>
+        <div class="alert alert-danger">
+          <%= errorMessage %>
+        </div>
+      <% } %>
+
       <form action="/users/signup" method="POST" class="mt-4">
         <!-- Organization Name -->
         <div class="form-group">

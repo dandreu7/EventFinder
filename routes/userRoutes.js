@@ -89,7 +89,7 @@ router.post('/logout', async (req, res) => {
 
 // Signup page route
 router.get('/signup', (req, res) => {
-    res.render('user/signup'); // Render signup.ejs
+    res.render('user/signup', { errorMessage: null });  // Render signup.ejs
 });
 
 // Profile page route (protected)
@@ -118,19 +118,32 @@ router.post('/signup', async (req, res) => {
     // Normalize email to lowercase
     const normalizedEmail = email.toLowerCase();
 
-    const newUser = new User({
-        firstName,
-        lastName,
-        email: normalizedEmail, // Save the normalized email
-        password,
-    });
-
     try {
+        // Check if the email already exists in the database
+        const existingUser = await User.findOne({ email: normalizedEmail });
+        if (existingUser) {
+           // If a duplicate email is found, render the signup page with an error message
+            return res.render('user/signup', {
+                errorMessage: 'A user with this email already exists.', // Pass the error message
+            });
+        }
+
+        const newUser = new User({
+            firstName,
+            lastName,
+            email: normalizedEmail, // Save the normalized email
+            password,
+        });
+
         // Save the user to the database
         await newUser.save();
 
-        // Redirect to login after account creation
-        res.redirect('/users/login');
+        // Automatically log the user in after signup by creating a session
+        req.session.userId = newUser._id;
+        req.session.userEmail = newUser.email; // Store user email in session
+
+        // Redirect to the profile page
+        res.redirect('/users/profile');
     } catch (err) {
         console.error('Signup error:', err);
         res.status(500).send('Error creating account.');
