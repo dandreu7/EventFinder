@@ -1,5 +1,7 @@
-const express = require("express");
-const User = require("../models/user");
+const express = require('express');
+const controller = require('../controllers/userController');
+const User = require('../models/user');
+const Event = require('../models/event');
 
 const router = express.Router();
 
@@ -48,11 +50,23 @@ router.get("/profile", async (req, res) => {
       return res.status(404).send("User not found");
     }
 
-    res.render("user/profile", { user });
-  } catch (err) {
-    console.error("Error fetching profile:", err);
-    res.status(500).send("Internal Server Error");
-  }
+    try {
+        // Fetch user based on session userId
+        const user = await User.findById(req.session.userId);
+
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+
+        // Find events created by the user's email
+        const events = await Event.find({ userEmail: user.email });
+
+        // Render the profile page with user and events
+        res.render('user/profile', { user, events });
+    } catch (err) {
+        console.error('Error fetching profile:', err);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
 // Handle profile updates
