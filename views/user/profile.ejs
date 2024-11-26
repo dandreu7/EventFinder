@@ -31,6 +31,20 @@
           </div>
           <p>Email:</p>
           <p class="profile-label"><%= user.email%></p>
+          <%console.log(events);%>
+          <% if(events.length) { %>
+            <p>You have created the following events:</p>
+            <%events.forEach(event => {%>
+              <% if (event.userEmail === user.email) { %>
+                <div>
+                  <p><%= event.title %></p>
+                  <p>Number interested: <%= event.numInterested %></p>
+                </div>
+              <% } %>
+            <% }); %>
+          <% } else { %>
+            <p>You have not posted any events.</p>
+          <%}%>
           <button class="edit-btn">Edit</button>
           <p></p>
           <p></p>
