@@ -41,11 +41,26 @@
               <% } %>
             </p>
             <p><strong>Location:</strong> <%= event.location %></p>
+            <p><strong>Description:</strong></p>
             <p><%= event.description %></p>
             <% if (!event.isActive) { %>
               <p class="text-danger"><strong>This event has already passed.</strong></p>
             <% } %>
-            <button id="rsvpButton<%=event.id%>" type="button" class="btn btn-primary">RSVP Now</button>
+            <!-- RSVP button -->
+            <% if (isOwner) { %>
+              <!-- Do nothing: Hide RSVP button for event creator -->
+            <% } else { %>
+              <button
+              id="rsvpButton<%= event.id %>"
+              data-event-id="<%= event.id %>"
+              class="btn <%= user && user.rsvpedEvents.some(rsvp => rsvp._id.toString() === event._id.toString()) ? 'btn-success' : 'btn-primary' %>"
+              <%= user ? '' : 'disabled' %>
+              >
+              <%= user
+                ? (user.rsvpedEvents.some(rsvp => rsvp._id.toString() === event._id.toString()) ? 'RSVP Confirmed' : 'RSVP Now')
+                : 'Log in to RSVP'
+              %>
+              <% } %>
             <% if (isOwner) { %>
               <button onclick="deleteEvent('<%= event._id %>')" class="btn btn-danger">Delete Event</button>
             <% } %>
@@ -68,39 +83,46 @@
   // Handle RSVP tracking
     document.addEventListener("DOMContentLoaded", () => {
 
-      const eventId = "<%=event.id%>";
-      const rsvpButton = document.getElementById(`rsvpButton${eventId}`);
+      // RSVP Button Event Listeners
+      const rsvpButtons = document.querySelectorAll("[id^='rsvpButton']");
 
-      if (rsvpButton) {
-        const rsvpStatus = localStorage.getItem(`rsvpPressed${eventId}`) === "true";
+      rsvpButtons.forEach((button) => {
+        button.addEventListener('click', async () => {
+          const eventId = button.dataset.eventId;
 
-        updateRsvpButton(rsvpButton, rsvpStatus);
-        rsvpButton.removeEventListener("click", toggleRsvp);
-        rsvpButton.addEventListener("click", toggleRsvp);
+          try {
+            const response = await fetch(`/events/${eventId}/rsvp`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+            });
 
-        function toggleRsvp() {
-          const isConfirmed = rsvpButton.classList.contains("btn-success");
-          const newStatus = !isConfirmed;
+            if (response.ok) {
+              const result = await response.json();
+              const rsvpConfirmed = result.rsvpConfirmed;
 
-          localStorage.setItem(`rsvpPressed${eventId}`, newStatus);
-          updateRsvpButton(rsvpButton, newStatus);
-        }
-
-        function updateRsvpButton(button, Confirmed) {
-          if (Confirmed) {
-            rsvpButton.textContent = "RSVP Confirmed";
-            rsvpButton.classList.remove("btn-primary");
-            rsvpButton.classList.add("btn-success");
+              // Update button text and class
+              updateRsvpButton(button, rsvpConfirmed);
+            } else {
+              const errorMessage = await response.text();
+              alert('Error: ' + errorMessage);
+            }
+          } catch (error) {
+            console.error('Error processing RSVP:', error);
+            alert('An unexpected error occurred.');
           }
-          else {
-            rsvpButton.textContent = "RSVP Now";
-            rsvpButton.classList.remove("btn-success");
-            rsvpButton.classList.add("btn-primary");
-          }
+        });
+      });
+
+      function updateRsvpButton(button, isConfirmed) {
+        if (isConfirmed) {
+          button.textContent = "RSVP Confirmed";
+          button.classList.remove("btn-primary");
+          button.classList.add("btn-success");
+        } else {
+          button.textContent = "RSVP Now";
+          button.classList.remove("btn-success");
+          button.classList.add("btn-primary");
         }
-      }
-      else {
-        console.error(`RSVP button not found for event ID: ${eventId}`);
       }
     });
     

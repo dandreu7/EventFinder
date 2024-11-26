@@ -6,7 +6,8 @@ const userSchema = new Schema({
     firstName: {type: String, required: [true, 'cannot be empty']},
     lastName: {type: String, required: [true, 'cannot be empty']},
     email: { type: String, required: true, unique: true, lowercase: true },
-    password: {type: String, required: [true, 'cannot be empty']}
+    password: {type: String, required: [true, 'cannot be empty']},
+    rsvpedEvents: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Event' }]
 });
 
 //encrypt passwords using hash before saving to database

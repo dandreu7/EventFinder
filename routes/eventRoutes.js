@@ -24,8 +24,19 @@ router.get('/events', async (req, res) => {
   try {
     const events = await Event.find();
     const userEmail = req.session.userEmail || null;
-    events.isActive = events.date > new Date();
-    res.render('events/events', { events, userEmail });
+
+    let user = null;
+
+    if (userEmail) {
+      // Fetch the logged-in user and populate their RSVPed events
+      user = await User.findOne({ email: userEmail }).populate('rsvpedEvents');
+    }
+
+    res.render('events/events', {
+      events,
+      user, 
+      userEmail, 
+    });
   } catch (err) {
     console.error(err);
     res.status(500).send("Error fetching events.");
@@ -42,18 +53,25 @@ router.get('/events/:id', async (req, res) => {
   try {
     const eventId = req.params.id;
     const event = await Event.findById(eventId);
+    const userEmail = req.session.userEmail || null;
+    const isOwner = userEmail && userEmail === event.userEmail;
+
+    let user = null;
+
+    if (userEmail) {
+      // Fetch the logged-in user and populate their RSVPed events
+      user = await User.findOne({ email: userEmail }).populate('rsvpedEvents');
+    }
 
     if (!event) {
       return res.status(404).send('Event not found');
     }
 
-    // Check if the logged-in user owns the event
-    const userEmail = req.session && req.session.userEmail;
-    const isOwner = userEmail && userEmail === event.userEmail;
-
     res.render('events/eventSingle', {
       event,
-      isOwner, // Explicitly pass true or false
+      user,
+      userEmail,
+      isOwner,
     });
   } catch (err) {
     console.error('Error fetching event details:', err);
@@ -107,12 +125,84 @@ router.delete('/events/:id', async (req, res) => {
 
     // Use findByIdAndDelete to remove the event
     await Event.findByIdAndDelete(eventId);
+
+    await User.updateMany(
+      { rsvpedEvents: eventId }, // Find users who have RSVPed for this event
+      { $pull: { rsvpedEvents: eventId } } // Remove the eventId from their rsvpedEvents array
+    );
+    
     res.status(200).send('Event deleted successfully');
   } catch (error) {
     console.error('Error deleting event:', error);
     res.status(500).send('Error deleting event');
   }
 });
+
+router.post('/events/:id/rsvp', async (req, res) => {
+  try {
+    // Ensure user is logged in
+    if (!req.session.userEmail) {
+      return res.status(401).send("You must be logged in to RSVP.");
+    }
+
+    const userEmail = req.session.userEmail;
+    const eventId = req.params.id;
+
+    // Find the event
+    const event = await Event.findById(eventId);
+    if (!event) {
+      return res.status(404).send("Event not found.");
+    }
+
+    // Find the user by their email
+    const user = await User.findOne({ email: userEmail });
+    if (!user) {
+      return res.status(404).send("User not found.");
+    }
+
+    // Prevent the creator from RSVPing
+    if (event.userEmail === userEmail) {
+      return res.status(403).send("You cannot RSVP your own event.");
+    }
+
+    // Check if the user has already RSVPed the event
+    const isAlreadyRsvped = user.rsvpedEvents.includes(eventId);
+
+    if (isAlreadyRsvped) {
+      // If RSVPed, remove the event from the user's RSVPed events
+      user.rsvpedEvents = user.rsvpedEvents.filter((id) => id.toString() !== eventId);
+    } else {
+      // If not RSVPed, add the event to the user's RSVPed events
+      user.rsvpedEvents.push(eventId);
+    }
+
+    // Save the updated user data
+    await user.save();
+
+    // Respond with the updated RSVP status
+    res.status(200).json({ rsvpConfirmed: !isAlreadyRsvped });
+  } catch (error) {
+    console.error("Error handling RSVP toggle:", error);
+    res.status(500).send("An error occurred while handling RSVP.");
+  }
+});
+
+
+
+router.get('/my-rsvps', async (req, res) => {
+  try {
+    if (!req.session.userEmail) {
+      return res.status(401).send('You must be logged in to view RSVPs');
+    }
+
+    const user = await User.findOne({ email: req.session.userEmail }).populate('rsvpedEvents');
+    res.render('events/rsvpedEvents', { events: user?.rsvpedEvents || [] });
+  } catch (error) {
+    console.error('Error fetching RSVPed events:', error);
+    res.status(500).send('Error fetching RSVPed events');
+  }
+});
+
 
 
 
