@@ -1,7 +1,6 @@
-const express = require('express');
-const controller = require('../controllers/userController');
-const User = require('../models/user');
-const Event = require('../models/event');
+const express = require("express");
+const User = require("../models/user");
+const Event = require("../models/event");
 
 const router = express.Router();
 
@@ -45,20 +44,25 @@ router.get("/profile", async (req, res) => {
   }
 
   try {
+    // Fetch user details
     const user = await User.findById(req.session.userId);
+
     if (!user) {
       return res.status(404).send("User not found");
     }
 
-    // Find events created by the user's email
-    const events = await Event.find({ userEmail: user.email });
+    // Fetch events created by the user
+    const userCreatedEvents = await Event.find({ userEmail: user.email });
 
-    // Render the profile page with user and events
-    res.render('user/profile', { user, events });
-    } catch (err) {
-        console.error('Error fetching profile:', err);
-        res.status(500).send('Internal Server Error');
-    };
+    // Fetch events RSVP'd by the user
+    const rsvpedEvents = await Event.find({ _id: { $in: user.rsvpedEvents } });
+
+    // Render profile page with user-created and RSVP'd events
+    res.render("user/profile", { user, userCreatedEvents, rsvpedEvents });
+  } catch (err) {
+    console.error("Error fetching profile:", err);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
 // Handle profile updates
@@ -70,6 +74,7 @@ router.post("/profile/edit", async (req, res) => {
   const { firstName, lastName, bio } = req.body;
 
   try {
+    // Update user profile information
     await User.findByIdAndUpdate(req.session.userId, {
       firstName,
       lastName,
@@ -107,6 +112,7 @@ router.post("/signup", async (req, res) => {
   try {
     const normalizedEmail = email.toLowerCase();
 
+    // Check if the user already exists
     const existingUser = await User.findOne({ email: normalizedEmail });
     if (existingUser) {
       return res.render("user/signup", {
@@ -114,6 +120,7 @@ router.post("/signup", async (req, res) => {
       });
     }
 
+    // Create a new user
     const newUser = new User({
       firstName,
       lastName,
