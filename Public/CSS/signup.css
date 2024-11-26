@@ -2,6 +2,8 @@
 
 /*Imports colors*/
 @import url('colors.css');
+/*Login Screen Background*/
+@import url('bgImg.css');
 
 /* Ensure the page takes up the full height of the window */
 html, body {
@@ -66,8 +68,12 @@ button:hover {
   background-color: #ffffff;
   border-radius: 15px;
   padding: 30px;
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 0px 15px 15px rgba(0, 0, 0, 0.30);
   margin-top: 40px; /* Adjust top margin as needed */
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+    position: relative;
 }
 
 /* Form Title and Description */
