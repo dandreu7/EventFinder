@@ -19,6 +19,7 @@
     <%- include('../partials/header') %> <%- include('../partials/sidebar') %>
     <div class="main-content">
       <div class="container mt-5">
+        <!-- Profile Section -->
         <div class="profile-container">
           <div class="profile-image">
             <i class="fas fa-user-circle"></i>
@@ -31,8 +32,8 @@
                 <%= user.bio || "Add a bio. Let people know who you are!" %>
               </p>
             </div>
-            <p>Email:</p>
-            <p class="profile-label"><%= user.email %></p>
+            <p class="profile-label">Email:</p>
+            <p><%= user.email %></p>
             <button
               class="edit-btn btn btn-primary"
               data-toggle="modal"
@@ -41,25 +42,41 @@
               Edit Profile
             </button>
           </div>
-          <p>Email:</p>
-          <p class="profile-label"><%= user.email%></p>
-          <%console.log(events);%>
-          <% if(events.length) { %>
-            <p>You have created the following events:</p>
-            <%events.forEach(event => {%>
-              <% if (event.userEmail === user.email) { %>
-                <div>
-                  <p><%= event.title %></p>
-                  <p>Number interested: <%= event.numInterested %></p>
-                </div>
-              <% } %>
-            <% }); %>
+        </div>
+
+        <!-- Your Events Section -->
+        <div class="events-section mt-5">
+          <h3>Your Events</h3>
+          <% if (userCreatedEvents.length) { %>
+          <ul class="event-list">
+            <% userCreatedEvents.forEach(event => { %>
+            <li>
+              <strong><%= event.title %></strong>
+              <p>Number interested: <%= event.numInterested %></p>
+            </li>
+            <% }) %>
+          </ul>
           <% } else { %>
-            <p>You have not posted any events.</p>
-          <%}%>
-          <button class="edit-btn">Edit</button>
-          <p></p>
-          <p></p>
+          <p>You have not created any events.</p>
+          <% } %>
+        </div>
+
+        <!-- RSVP'd Events Section -->
+        <div class="events-section mt-5">
+          <h3>RSVP'd Events</h3>
+          <% if (rsvpedEvents.length) { %>
+          <ul class="event-list">
+            <% rsvpedEvents.forEach(event => { %>
+            <li>
+              <strong><%= event.title %></strong>
+              <p>Location: <%= event.location %></p>
+              <p>Date: <%= event.date %></p>
+            </li>
+            <% }) %>
+          </ul>
+          <% } else { %>
+          <p>You have not RSVP'd to any events.</p>
+          <% } %>
         </div>
       </div>
     </div>
