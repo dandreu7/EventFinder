@@ -48,19 +48,18 @@
             <% } %>
             <!-- RSVP button -->
             <% if (isOwner) { %>
-              <!-- Do nothing: Hide RSVP button for event creator -->
             <% } else if (event.isActive && userEmail && event.userEmail !== userEmail) { %>
               <button
-              id="rsvpButton<%= event.id %>"
-              data-event-id="<%= event.id %>"
-              class="btn <%= user && user.rsvpedEvents.some(rsvp => rsvp._id.toString() === event._id.toString()) ? 'btn-success' : 'btn-primary' %>"
-              <%= user ? '' : 'disabled' %>
-              >
-              <%= user
-                ? (user.rsvpedEvents.some(rsvp => rsvp._id.toString() === event._id.toString()) ? 'RSVP Confirmed' : 'RSVP Now')
-                : 'Log in to RSVP'
-              %>
-              <% } %>
+            id="rsvpButton<%= event.id %>"
+            data-event-id="<%= event.id %>"
+            class="btn <%= user && user.rsvpedEvents.some(rsvp => rsvp._id.toString() === event._id.toString()) ? 'btn-success' : 'btn-primary' %>"
+            <%= user ? '' : 'disabled' %>
+            >
+            <%= user
+              ? (user.rsvpedEvents.some(rsvp => rsvp._id.toString() === event._id.toString()) ? 'RSVP Confirmed' : 'RSVP Now')
+              : 'Log in to RSVP'
+            %>
+            <% } %>
             <% if (isOwner) { %>
               <button onclick="deleteEvent('<%= event._id %>')" class="btn btn-danger">Delete Event</button>
             <% } %>
