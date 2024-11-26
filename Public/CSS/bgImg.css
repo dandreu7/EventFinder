@@ -1,0 +1,28 @@
+.slideshow-container {
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    overflow: hidden;
+    z-index: -1;
+    background-color: var(--primary-color);
+
+}
+
+.slide {
+    position: absolute;
+    top: -10%;    /* Give extra room for panning */
+    left: -10%;
+    width: 120%;  /* Make slightly larger to prevent white edges */
+    height: 120%;
+    opacity: 0;
+    background-size: cover;
+    background-position: center;
+    transition: opacity 2s ease-in-out, transform 20s ease-in-out;
+    transform-origin: center center;  /* Ensure transforms pivot from center */
+}
+
+.slide.active {
+    opacity: 1;
+}
