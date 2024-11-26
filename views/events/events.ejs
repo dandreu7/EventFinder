@@ -60,7 +60,7 @@
                 <button
                   class="btn btn-primary"
                   data-toggle="modal"
-                  data-target="#eventModal<%= event.id %>"
+                  data-target="#eventModal<%= event._id %>"
                 >
                   View Details
                 </button>
@@ -71,16 +71,16 @@
           <!-- Event Details Modal for each event -->
           <div
             class="modal fade"
-            id="eventModal<%= event.id %>"
+            id="eventModal<%= event._id %>"
             tabindex="-1"
             role="dialog"
-            aria-labelledby="eventModalLabel<%= event.id %>"
+            aria-labelledby="eventModalLabel<%= event._id %>"
             aria-hidden="true"
           >
             <div class="modal-dialog modal-lg" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="eventModalLabel<%= event.id %>">
+                  <h5 class="modal-title" id="eventModalLabel<%= event._id %>">
                     <%= event.title %>
                   </h5>
                   <button
@@ -119,16 +119,27 @@
                         <% if (!event.isActive) { %>
                           <p class="text-danger"><strong>This event has already passed.</strong></p>
                         <% } %>
+                        <% if (userEmail && event.userEmail === userEmail) { %>
+                          <button onclick="deleteEvent('<%= event._id %>')" class="btn btn-danger">Delete Event</button>
+                        <% } %>
                       </div>
                       <div class="col-md-4 text-right">
-                        <!-- RSVP button -->
-                        <button
-                          id="rsvpButton<%=event.id%>"
-                          type="button"
-                          class="btn btn-primary"
-                        >
-                          RSVP Now
-                        </button>
+                        <!-- RSVP button -->  
+                        <% if (userEmail && event.userEmail === userEmail) { %>
+                          <!-- Do nothing: Hide RSVP button for event creator -->
+                        <% } else { %>
+                          <button
+                          id="rsvpButton<%= event.id %>"
+                          data-event-id="<%= event.id %>"
+                          class="btn <%= user && user.rsvpedEvents.some(rsvp => rsvp._id.toString() === event._id.toString()) ? 'btn-success' : 'btn-primary' %>"
+                          <%= user ? '' : 'disabled' %>
+                          >
+                          <%= user
+                            ? (user.rsvpedEvents.some(rsvp => rsvp._id.toString() === event._id.toString()) ? 'RSVP Confirmed' : 'RSVP Now')
+                            : 'Log in to RSVP'
+                          %>
+                          <% } %>
+                      </button>                   
                       </div>
                     </div>
                   </div>
@@ -162,40 +173,47 @@
     <script>
       // Handle RSVP tracking
       document.addEventListener("DOMContentLoaded", () => {
-        $(".modal").on("shown.bs.modal", function () {
-          const eventId = this.id.replace("eventModal", "");
-          const rsvpButton = document.getElementById(`rsvpButton${eventId}`);
-          if (rsvpButton) {
-            const rsvpStatus =
-              localStorage.getItem(`rsvpPressed${eventId}`) === "true";
+        // RSVP Button Event Listeners
+        const rsvpButtons = document.querySelectorAll("[id^='rsvpButton']");
 
-            updateRsvpButton(rsvpButton, rsvpStatus);
-            rsvpButton.removeEventListener("click", toggleRsvp);
-            rsvpButton.addEventListener("click", toggleRsvp);
+        rsvpButtons.forEach((button) => {
+          button.addEventListener('click', async () => {
+            const eventId = button.dataset.eventId;
 
-            function toggleRsvp() {
-              const isConfirmed = rsvpButton.classList.contains("btn-success");
-              const newStatus = !isConfirmed;
+            try {
+              const response = await fetch(`/events/${eventId}/rsvp`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+              });
 
-              localStorage.setItem(`rsvpPressed${eventId}`, newStatus);
-              updateRsvpButton(rsvpButton, newStatus);
-            }
+              if (response.ok) {
+                const result = await response.json();
+                const rsvpConfirmed = result.rsvpConfirmed;
 
-            function updateRsvpButton(button, Confirmed) {
-              if (Confirmed) {
-                rsvpButton.textContent = "RSVP Confirmed";
-                rsvpButton.classList.remove("btn-primary");
-                rsvpButton.classList.add("btn-success");
+                // Update button text and class
+                updateRsvpButton(button, rsvpConfirmed);
               } else {
-                rsvpButton.textContent = "RSVP Now";
-                rsvpButton.classList.remove("btn-success");
-                rsvpButton.classList.add("btn-primary");
+                const errorMessage = await response.text();
+                alert('Error: ' + errorMessage);
               }
+            } catch (error) {
+              console.error('Error processing RSVP:', error);
+              alert('An unexpected error occurred.');
             }
-          } else {
-            console.error(`RSVP button not found for event ID: ${eventId}`);
-          }
+          });
         });
+
+        function updateRsvpButton(button, isConfirmed) {
+          if (isConfirmed) {
+            button.textContent = "RSVP Confirmed";
+            button.classList.remove("btn-primary");
+            button.classList.add("btn-success");
+          } else {
+            button.textContent = "RSVP Now";
+            button.classList.remove("btn-success");
+            button.classList.add("btn-primary");
+          }
+        }
 
         // Handle Search Functionality
         const searchInput = document.getElementById("searchInput");
@@ -211,6 +229,28 @@
           });
         });
       });
+
+      async function deleteEvent(eventId) {
+        if (confirm('Are you sure you want to delete this event?')) {
+          try {
+            const response = await fetch(`/events/${eventId}`, {
+              method: 'DELETE',
+            });
+      
+            if (response.ok) {
+              alert('Event deleted successfully!');
+              window.location.href = '/events';
+            } else {
+              const errorText = await response.text();
+              alert('Error: ' + errorText);
+            }
+          } catch (err) {
+            console.error('Error deleting event:', err);
+            alert('An unexpected error occurred.');
+          }
+        }
+      }
+      
     </script>
   </body>
 </html>
