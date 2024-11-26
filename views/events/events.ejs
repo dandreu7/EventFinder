@@ -127,19 +127,18 @@
                         <div class="col-md-4 text-right">
                           <!-- RSVP button -->  
                           <% if (userEmail && event.userEmail === userEmail) { %>
-                            <!-- Do nothing: Hide RSVP button for event creator -->
                           <% } else if (event.isActive && userEmail && event.userEmail !== userEmail) { %>
                             <button
-                            id="rsvpButton<%= event.id %>"
-                            data-event-id="<%= event.id %>"
-                            class="btn <%= user && user.rsvpedEvents.some(rsvp => rsvp._id.toString() === event._id.toString()) ? 'btn-success' : 'btn-primary' %>"
-                            <%= user ? '' : 'disabled' %>
-                            >
-                            <%= user
-                              ? (user.rsvpedEvents.some(rsvp => rsvp._id.toString() === event._id.toString()) ? 'RSVP Confirmed' : 'RSVP Now')
-                              : 'Log in to RSVP'
-                            %>
-                            <% } %>
+                          id="rsvpButton<%= event.id %>"
+                          data-event-id="<%= event.id %>"
+                          class="btn <%= user && user.rsvpedEvents.some(rsvp => rsvp._id.toString() === event._id.toString()) ? 'btn-success' : 'btn-primary' %>"
+                          <%= user ? '' : 'disabled' %>
+                          >
+                          <%= user
+                            ? (user.rsvpedEvents.some(rsvp => rsvp._id.toString() === event._id.toString()) ? 'RSVP Confirmed' : 'RSVP Now')
+                            : 'Log in to RSVP'
+                          %>
+                          <% } %>
                         </div>
                       </div>
                     </div>
