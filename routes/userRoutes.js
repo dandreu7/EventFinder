@@ -50,23 +50,15 @@ router.get("/profile", async (req, res) => {
       return res.status(404).send("User not found");
     }
 
-    try {
-        // Fetch user based on session userId
-        const user = await User.findById(req.session.userId);
+    // Find events created by the user's email
+    const events = await Event.find({ userEmail: user.email });
 
-        if (!user) {
-            return res.status(404).send('User not found');
-        }
-
-        // Find events created by the user's email
-        const events = await Event.find({ userEmail: user.email });
-
-        // Render the profile page with user and events
-        res.render('user/profile', { user, events });
+    // Render the profile page with user and events
+    res.render('user/profile', { user, events });
     } catch (err) {
         console.error('Error fetching profile:', err);
         res.status(500).send('Internal Server Error');
-    }
+    };
 });
 
 // Handle profile updates

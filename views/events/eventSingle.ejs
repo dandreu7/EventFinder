@@ -49,7 +49,7 @@
             <!-- RSVP button -->
             <% if (isOwner) { %>
               <!-- Do nothing: Hide RSVP button for event creator -->
-            <% } else { %>
+            <% } else if (event.isActive && userEmail && event.userEmail !== userEmail) { %>
               <button
               id="rsvpButton<%= event.id %>"
               data-event-id="<%= event.id %>"

@@ -8,7 +8,7 @@ const eventSchema = new Schema({
     date: {type: Date, required: [true, 'cannot be empty']},
     imagePath: {type: String, required:[true, 'image is required']},
     numInterested: {type: Number, default: 0, required:[true, 'numInterested is required']},
-    userEmail: {type: String, required:[true]}
+    userEmail: {type: String, required:[true]},
 });
 
 eventSchema.virtual('isActive').get(function() {
