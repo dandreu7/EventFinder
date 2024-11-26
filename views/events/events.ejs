@@ -40,95 +40,95 @@
         <div class="row">
           <!-- Dynamically render events -->
           <% events.forEach(function(event) { %>
-          <div class="col-lg-custom col-md-6 mb-4" data-event-name="<%= event.title %>" data-event-desc="<%= event.description %>">
-            <div class="card h-100">
-              <img
-                src="<%= event.imagePath %>"
-                class="card-img-top img-fluid"
-                alt="<%= event.title %>"
-              />
-              <div class="card-body">
-                <h5 class="card-title"><%= event.title %></h5>
-                <p class="card-text"><%= event.description %></p>
-                <p class="card-text">
-                  <small class="text-muted">Date: <%= (event.date).toUTCString() %></small>
-                </p>
-                <p class="card-text">
-                  <strong>Location:</strong> <%= event.location %>
-                </p>
-                <!-- View Details button triggers the modal -->
-                <button
-                  class="btn btn-primary"
-                  data-toggle="modal"
-                  data-target="#eventModal<%= event._id %>"
-                >
-                  View Details
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Event Details Modal for each event -->
-          <div
-            class="modal fade"
-            id="eventModal<%= event._id %>"
-            tabindex="-1"
-            role="dialog"
-            aria-labelledby="eventModalLabel<%= event._id %>"
-            aria-hidden="true"
-          >
-            <div class="modal-dialog modal-lg" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="eventModalLabel<%= event._id %>">
-                    <%= event.title %>
-                  </h5>
+          <% if (event.isActive) { %> <!-- Show only active events -->
+            <div class="col-lg-custom col-md-6 mb-4" data-event-name="<%= event.title %>">
+              <div class="card h-100">
+                <img
+                  src="<%= event.imagePath %>"
+                  class="card-img-top img-fluid"
+                  alt="<%= event.title %>"
+                />
+                <div class="card-body">
+                  <h5 class="card-title"><%= event.title %></h5>
+                  <p class="card-text"><%= event.description %></p>
+                  <p class="card-text">
+                    <small class="text-muted">Date: <%= (event.date).toUTCString() %></small>
+                  </p>
+                  <p class="card-text">
+                    <strong>Location:</strong> <%= event.location %>
+                  </p>
+                  <!-- View Details button triggers the modal -->
                   <button
-                    type="button"
-                    class="close"
-                    data-dismiss="modal"
-                    aria-label="Close"
+                    class="btn btn-primary"
+                    data-toggle="modal"
+                    data-target="#eventModal<%= event._id %>"
                   >
-                    <span aria-hidden="true">&times;</span>
+                    View Details
                   </button>
                 </div>
-                <div class="modal-body">
-                  <div class="container-fluid">
-                    <!-- Event Image (if available) -->
-                    <div class="row mb-4">
-                      <div class="col-md-12 text-center">
-                        <% if (event.imagePath) { %>
-                        <img
-                          src="<%= event.imagePath %>"
-                          class="img-fluid"
-                          alt="<%= event.title %>"
-                        />
-                        <% } else { %>
-                        <p>No image available for this event</p>
-                        <% } %>
+              </div>
+            </div>
+
+            <!-- Event Details Modal for each event -->
+            <div
+              class="modal fade"
+              id="eventModal<%= event._id %>"
+              tabindex="-1"
+              role="dialog"
+              aria-labelledby="eventModalLabel<%= event._id %>"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="eventModalLabel<%= event._id %>">
+                      <%= event.title %>
+                    </h5>
+                    <button
+                      type="button"
+                      class="close"
+                      data-dismiss="modal"
+                      aria-label="Close"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="container-fluid">
+                      <!-- Event Image (if available) -->
+                      <div class="row mb-4">
+                        <div class="col-md-12 text-center">
+                          <% if (event.imagePath) { %>
+                          <img
+                            src="<%= event.imagePath %>"
+                            class="img-fluid"
+                            alt="<%= event.title %>"
+                          />
+                          <% } else { %>
+                          <p>No image available for this event</p>
+                          <% } %>
+                        </div>
                       </div>
-                    </div>
-                    <!-- Event Details -->
-                    <div class="row">
-                      <div class="col-md-8">
-                        <p><strong>Location:</strong> <%= event.location %></p>
-                        <p><strong>Date:</strong> <%= (event.date).toUTCString() %></p>
-                        <p><strong>Description:</strong></p>
-                        <p><%= event.description %></p>
-                        <p><strong>Owner:</strong> <%= event.userEmail %></p>
-                        <% if (!event.isActive) { %>
-                          <p class="text-danger"><strong>This event has already passed.</strong></p>
-                        <% } %>
-                        <% if (userEmail && event.userEmail === userEmail) { %>
-                          <button onclick="deleteEvent('<%= event._id %>')" class="btn btn-danger">Delete Event</button>
-                        <% } %>
-                      </div>
-                      <div class="col-md-4 text-right">
-                        <!-- RSVP button -->  
-                        <% if (userEmail && event.userEmail === userEmail) { %>
-                          <!-- Do nothing: Hide RSVP button for event creator -->
-                        <% } else { %>
-                          <button
+                      <!-- Event Details -->
+                      <div class="row">
+                        <div class="col-md-8">
+                          <p><strong>Location:</strong> <%= event.location %></p>
+                          <p><strong>Date:</strong> <%= (event.date).toUTCString() %></p>
+                          <p><strong>Description:</strong></p>
+                          <p><%= event.description %></p>
+                          <p><strong>Owner:</strong> <%= event.userEmail %></p>
+                          <% if (!event.isActive) { %>
+                            <p class="text-danger"><strong>This event has already passed.</strong></p>
+                          <% } %>
+                          <% if (userEmail && event.userEmail === userEmail) { %>
+                            <button onclick="deleteEvent('<%= event._id %>')" class="btn btn-danger">Delete Event</button>
+                          <% } %>
+                        </div>
+                        <div class="col-md-4 text-right">
+                          <!-- RSVP button -->  
+                          <% if (userEmail && event.userEmail === userEmail) { %>
+                          <% } else if (event.isActive && userEmail && event.userEmail !== userEmail) { %>
+                            <button
                           id="rsvpButton<%= event.id %>"
                           data-event-id="<%= event.id %>"
                           class="btn <%= user && user.rsvpedEvents.some(rsvp => rsvp._id.toString() === event._id.toString()) ? 'btn-success' : 'btn-primary' %>"
@@ -139,23 +139,23 @@
                             : 'Log in to RSVP'
                           %>
                           <% } %>
-                      </button>                   
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-dismiss="modal"
-                  >
-                    Close
-                  </button>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+            <% } %>
           <% }); %>
         </div>
       </section>
@@ -224,8 +224,7 @@
 
           eventCards.forEach(card => {
             const eventName = card.getAttribute("data-event-name").toLowerCase();
-            const eventDesc = card.getAttribute("data-event-desc").toLowerCase();
-            card.style.display = (eventName.includes(searchTerm) || eventDesc.includes(searchTerm)) ? "block" : "none";
+            card.style.display = eventName.includes(searchTerm) ? "block" : "none";
           });
         });
       });
