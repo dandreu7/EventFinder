@@ -30,6 +30,11 @@ app.use(
     })
 );
 
+app.use((req, res, next)=>{
+    res.locals.user = req.session.user || null;
+    next();
+});
+
 // Serve static files from the "public" directory
 app.use(express.static(path.join(__dirname, 'public')));
 
