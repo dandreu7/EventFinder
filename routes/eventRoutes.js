@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
 // Events page route (shows list of all events)
 router.get('/events', async (req, res) => {
   try {
-    const events = await Event.find();
+    const events = await Event.find().sort({ date: 1 }); // Sort by date ascending (oldest first)
     const userEmail = req.session.userEmail || null;
 
     let user = null;
