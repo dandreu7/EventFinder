@@ -171,16 +171,14 @@ router.post('/events/:id/rsvp', async (req, res) => {
     if (isAlreadyRsvped) {
       // If RSVPed, remove the event from the user's RSVPed events
       user.rsvpedEvents = user.rsvpedEvents.filter((id) => id.toString() !== eventId);
+      await user.save();
+      return res.status(200).json({ rsvpConfirmed: false });
     } else {
       // If not RSVPed, add the event to the user's RSVPed events
       user.rsvpedEvents.push(eventId);
+      await user.save();
+      return res.status(200).json({ rsvpConfirmed: true });
     }
-
-    // Save the updated user data
-    await user.save();
-
-    // Respond with the updated RSVP status
-    res.status(200).json({ rsvpConfirmed: !isAlreadyRsvped });
   } catch (error) {
     console.error("Error handling RSVP toggle:", error);
     res.status(500).send("An error occurred while handling RSVP.");

@@ -129,11 +129,11 @@
                           <% if (userEmail && event.userEmail === userEmail) { %>
                           <% } else if (event.isActive && userEmail && event.userEmail !== userEmail) { %>
                             <button
-                          id="rsvpButton<%= event.id %>"
-                          data-event-id="<%= event.id %>"
-                          class="btn <%= user && user.rsvpedEvents.some(rsvp => rsvp._id.toString() === event._id.toString()) ? 'btn-success' : 'btn-primary' %>"
-                          <%= user ? '' : 'disabled' %>
-                          >
+                              id="rsvpButton<%= event.id %>"
+                              data-event-id="<%= event.id %>"
+                              class="btn <%= user && user.rsvpedEvents.some(rsvp => rsvp._id.toString() === event._id.toString()) ? 'btn-success' : 'btn-primary' %>"
+                              <%= user ? '' : 'disabled' %>
+                            >
                           <%= user
                             ? (user.rsvpedEvents.some(rsvp => rsvp._id.toString() === event._id.toString()) ? 'RSVP Confirmed' : 'RSVP Now')
                             : 'Log in to RSVP'
@@ -180,6 +180,9 @@
           button.addEventListener('click', async () => {
             const eventId = button.dataset.eventId;
 
+            // Disable the button to prevent multiple clicks
+            button.disabled = true;
+            
             try {
               const response = await fetch(`/events/${eventId}/rsvp`, {
                 method: 'POST',
@@ -199,6 +202,9 @@
             } catch (error) {
               console.error('Error processing RSVP:', error);
               alert('An unexpected error occurred.');
+            } finally {
+              // Re-enable the button regardless of the outcome
+              button.disabled = false;
             }
           });
         });
