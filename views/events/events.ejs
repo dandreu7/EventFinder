@@ -41,7 +41,7 @@
           <!-- Dynamically render events -->
           <% events.forEach(function(event) { %>
           <% if (event.isActive) { %> <!-- Show only active events -->
-            <div class="col-lg-custom col-md-6 mb-4" data-event-name="<%= event.title %>" data-event-desc="<%= event.description %>">
+            <div class="col-lg-custom col-md-6 mb-4" data-event-name="<%= event.title %>" data-event-desc="<%= event.description %>" data-event-loca="<%= event.location %>">
               <div class="card h-100">
                 <img
                   src="<%= event.imagePath %>"
@@ -231,7 +231,8 @@
           eventCards.forEach(card => {
             const eventName = card.getAttribute("data-event-name").toLowerCase();
             const eventDesc = card.getAttribute("data-event-desc").toLowerCase();
-            card.style.display = eventName.includes(searchTerm) || eventDesc.includes(searchTerm) ? "block" : "none";
+            const eventLoca = card.getAttribute("data-event-loca").toLowerCase();
+            card.style.display = eventName.includes(searchTerm) || eventDesc.includes(searchTerm) || eventLoca.includes(searchTerm) ? "block" : "none";
           });
         });
       });
