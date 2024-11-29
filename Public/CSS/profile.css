@@ -208,3 +208,8 @@
   padding: 15px;
   border-radius: 8px;
 }
+
+li {
+  list-style-type: none; /* Removes bullet points */
+  padding-left: 0; /* Removes any default padding */
+}
