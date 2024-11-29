@@ -13,6 +13,7 @@
   align-items: center;
   justify-content: space-between;
 }
+
 .profile-image {
   width: 150px;
   height: 150px;
@@ -25,16 +26,20 @@
   color: #ffffff;
   margin-right: 30px;
 }
+
 .profile-details {
   flex-grow: 1;
 }
+
 .profile-details h2 {
   font-weight: bold;
   font-size: 24px;
 }
+
 .profile-details p {
   margin-bottom: 8px;
 }
+
 .profile-details .edit-btn {
   background-color: #00693e;
   color: white;
@@ -45,64 +50,145 @@
   cursor: pointer;
   margin-top: 20px;
 }
+
 .profile-details .edit-btn:hover {
   background-color: #d4af37;
 }
+
 .bio-section {
   margin-bottom: 15px;
 }
+
 .profile-label {
   font-weight: bold;
 }
 
-/* Modal custom styles */
-.modal-content {
-  border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+/* Block Container Styling */
+.block-container {
+  background: #f9f9f9;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
 }
 
+.block-header {
+  margin-bottom: 15px;
+  border-bottom: 2px solid #00693e;
+  padding-bottom: 10px;
+}
+
+.event-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Buttons */
+.btn-edit {
+  background-color: #00693e;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.btn-edit:hover {
+  background-color: #d4af37;
+}
+
+.btn-delete,
+.btn-cancel {
+  background-color: #00693e;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.btn-delete:hover,
+.btn-cancel:hover {
+  background-color: #d9534f;
+}
+
+/* Modal Styling */
 .modal-header {
-  border-bottom: 2px solid #d4af37;
+  border-bottom: 2px solid #e5e5e5;
+}
+
+.modal-header.bg-primary {
+  background-color: #00693e;
+}
+
+.modal-header.bg-primary .text-white {
+  color: #fff;
+}
+
+.modal-content {
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 .modal-title {
   font-size: 1.5rem;
+  font-weight: bold;
 }
 
-.form-control-lg {
-  font-size: 1.2rem;
-  padding: 15px;
+/* Form Styling inside Modal */
+.modal-body .form-group {
+  margin-bottom: 20px;
+}
+
+.modal-body label {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.modal-body input,
+.modal-body textarea {
   border: 1px solid #ccc;
-  border-radius: 10px;
+  border-radius: 5px;
+  padding: 10px;
 }
 
-textarea.form-control-lg {
+.modal-body textarea {
   resize: none;
 }
 
-button {
-  transition: background-color 0.3s, transform 0.2s;
-}
-
-button:hover {
-  transform: scale(1.05);
-}
-
-/* Update Save Changes Button */
-.save-btn {
-  background-color: #00693e; /* Your main green color */
-  color: #fff;
+/* Buttons */
+.modal-footer .btn-secondary {
+  background-color: #e0e0e0;
   border: none;
+  color: #333;
 }
 
-.save-btn:hover {
-  background-color: #004c2b; /* A darker shade of the green for hover effect */
-  color: #fff;
+.modal-footer .btn-secondary:hover {
+  background-color: #d6d6d6;
 }
 
-/* Save Changes Button Custom Styling */
+.modal-footer .btn-primary {
+  background-color: #00693e;
+  border: none;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.modal-footer .btn-primary:hover {
+  background-color: #004c2b;
+}
+
+/* Save Changes Button */
 .save-btn {
-  background-color: #00693e; /* Main green color */
+  background-color: #00693e;
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -112,6 +198,13 @@ button:hover {
 }
 
 .save-btn:hover {
-  background-color: #004c2b; /* A slightly darker green for hover effect */
-  transform: scale(1.05); /* Subtle scaling effect */
+  background-color: #004c2b;
+  transform: scale(1.05);
+}
+
+/* Input Fields */
+.form-control-lg {
+  font-size: 1.1rem;
+  padding: 15px;
+  border-radius: 8px;
 }
