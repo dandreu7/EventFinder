@@ -42,4 +42,39 @@ document.addEventListener("DOMContentLoaded", () => {
       editEventModal.show();
     });
   });
+
+  // Handle Cancel Reservation Button
+  const cancelForms = document.querySelectorAll('.cancel-rsvp-form');
+      
+  cancelForms.forEach(form => {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const eventId = form.getAttribute('data-event-id'); // Get event ID from data attribute
+      
+      fetch(form.action, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ eventId: eventId })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.rsvpConfirmed === false) {
+          // If RSVP was canceled, remove the event from the DOM
+          const eventItem = document.getElementById('event-' + eventId);
+          if (eventItem) {
+            eventItem.remove();
+          }
+        } else {
+          alert('Failed to cancel RSVP. Please try again.');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while canceling RSVP. Please try again.');
+      });
+    });
+  });
 });
