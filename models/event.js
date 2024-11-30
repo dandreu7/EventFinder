@@ -7,7 +7,7 @@ const eventSchema = new Schema({
     location: {type: String, required: [true, 'cannot be empty']},
     date: {type: Date, required: [true, 'cannot be empty']},
     imagePath: {type: String, required:[true, 'image is required']},
-    numInterested: {type: Number, default: 0, required:[true, 'numInterested is required']},
+    numInterested: { type: Number, default: 0 },
     userEmail: {type: String, required:[true]},
 });
 

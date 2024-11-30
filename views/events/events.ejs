@@ -57,6 +57,7 @@
                   <p class="card-text">
                     <strong>Location:</strong> <%= event.location %>
                   </p>
+                  
                   <!-- View Details button triggers the modal -->
                   <button
                     class="btn btn-primary"
@@ -123,6 +124,7 @@
                           <% if (userEmail && event.userEmail === userEmail) { %>
                             <button onclick="deleteEvent('<%= event._id %>')" class="btn btn-danger">Delete Event</button>
                           <% } %>
+                          <p><strong>Number of People Interested:</strong> <span class="numInterestedText"><%= event.numInterested %></span></p>
                         </div>
                         <div class="col-md-4 text-right">
                           <!-- RSVP button -->  
@@ -182,7 +184,7 @@
 
             // Disable the button to prevent multiple clicks
             button.disabled = true;
-            
+
             try {
               const response = await fetch(`/events/${eventId}/rsvp`, {
                 method: 'POST',
@@ -192,9 +194,13 @@
               if (response.ok) {
                 const result = await response.json();
                 const rsvpConfirmed = result.rsvpConfirmed;
+                const numInterested = result.numInterested;
 
                 // Update button text and class
                 updateRsvpButton(button, rsvpConfirmed);
+                
+                // Update the number of interested users in the modal
+                updateNumInterested(eventId, numInterested);
               } else {
                 const errorMessage = await response.text();
                 alert('Error: ' + errorMessage);
@@ -221,6 +227,14 @@
           }
         }
 
+        function updateNumInterested(eventId, numInterested) {
+          const modal = document.getElementById(`eventModal${eventId}`);
+          const numInterestedText = modal.querySelector('.numInterestedText'); // Ensure this element exists in the modal
+      
+          if (numInterestedText) {
+            numInterestedText.textContent = `${numInterested}`;
+          }
+        }
         // Handle Search Functionality
         const searchInput = document.getElementById("searchInput");
         const eventCards = document.querySelectorAll(".col-lg-custom");

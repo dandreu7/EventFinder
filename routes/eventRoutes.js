@@ -31,6 +31,10 @@ router.get("/events", async (req, res) => {
       user = await User.findOne({ email: userEmail }).populate("rsvpedEvents");
     }
 
+    for (let event of events) {
+      event.numInterested = await User.countDocuments({ rsvpedEvents: event._id });
+    }
+
     res.render("events/events", {
       events,
       user,
@@ -50,24 +54,27 @@ router.get("/create/event", async (req, res) => {
 // Single Event Details route (view individual event)
 router.get("/events/:id", async (req, res) => {
   try {
-    const eventId = req.params.id;
+    const eventId = req.params.id; // Fix: Define eventId
     const event = await Event.findById(eventId);
     const userEmail = req.session.userEmail || null;
     const isOwner = userEmail && userEmail === event.userEmail;
-
-    let user = null;
-
-    if (userEmail) {
-      // Fetch the logged-in user and populate their RSVPed events
-      user = await User.findOne({ email: userEmail }).populate("rsvpedEvents");
-    }
 
     if (!event) {
       return res.status(404).send("Event not found");
     }
 
+    // Calculate numInterested
+    const numInterested = await User.countDocuments({ rsvpedEvents: event._id });
+
+    // Check if the logged-in user has RSVPed
+    let user = null;
+    if (userEmail) {
+      user = await User.findOne({ email: userEmail }).populate("rsvpedEvents");
+    }
+
     res.render("events/eventSingle", {
       event,
+      numInterested, // Pass this to the template
       user,
       userEmail,
       isOwner,
@@ -170,14 +177,22 @@ router.post("/events/:id/rsvp", async (req, res) => {
     if (isAlreadyRsvped) {
       // If RSVPed, remove the event from the user's RSVPed events
       user.rsvpedEvents = user.rsvpedEvents.filter((id) => id.toString() !== eventId);
+      // Decrease numInterested count on the event
       await user.save();
-      return res.status(200).json({ rsvpConfirmed: false });
     } else {
       // If not RSVPed, add the event to the user's RSVPed events
       user.rsvpedEvents.push(eventId);
+      // Increase numInterested count on the event
       await user.save();
-      return res.status(200).json({ rsvpConfirmed: true });
     }
+
+    const numInterested = await User.countDocuments({ rsvpedEvents: eventId });
+
+    res.status(200).json({ 
+      rsvpConfirmed: !isAlreadyRsvped, 
+      numInterested 
+    });
+    
   } catch (error) {
     console.error("Error handling RSVP toggle:", error);
     res.status(500).send("An error occurred while handling RSVP.");

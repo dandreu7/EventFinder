@@ -43,6 +43,7 @@
             <p><strong>Location:</strong> <%= event.location %></p>
             <p><strong>Description:</strong></p>
             <p><%= event.description %></p>
+            <p><strong>Number of People Interested:</strong> <span class="numInterestedText"><%= event.numInterested %></span></p>
             <% if (!event.isActive) { %>
               <p class="text-danger"><strong>This event has already passed.</strong></p>
             <% } %>
@@ -80,49 +81,66 @@
 <script>
 
   // Handle RSVP tracking
-    document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("DOMContentLoaded", () => {
+    // RSVP Button Event Listeners
+    const rsvpButtons = document.querySelectorAll("[id^='rsvpButton']");
 
-      // RSVP Button Event Listeners
-      const rsvpButtons = document.querySelectorAll("[id^='rsvpButton']");
+    rsvpButtons.forEach((button) => {
+      button.addEventListener('click', async () => {
+        const eventId = button.dataset.eventId;
 
-      rsvpButtons.forEach((button) => {
-        button.addEventListener('click', async () => {
-          const eventId = button.dataset.eventId;
+        // Disable the button to prevent multiple clicks
+        button.disabled = true;
 
-          try {
-            const response = await fetch(`/events/${eventId}/rsvp`, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-            });
+        try {
+          const response = await fetch(`/events/${eventId}/rsvp`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+          });
 
-            if (response.ok) {
-              const result = await response.json();
-              const rsvpConfirmed = result.rsvpConfirmed;
+          if (response.ok) {
+            const result = await response.json();
+            const rsvpConfirmed = result.rsvpConfirmed;
+            const numInterested = result.numInterested;
 
-              // Update button text and class
-              updateRsvpButton(button, rsvpConfirmed);
-            } else {
-              const errorMessage = await response.text();
-              alert('Error: ' + errorMessage);
-            }
-          } catch (error) {
-            console.error('Error processing RSVP:', error);
-            alert('An unexpected error occurred.');
+            // Update button text and class
+            updateRsvpButton(button, rsvpConfirmed);
+            
+            // Update the number of interested users in the modal
+            updateNumInterested(eventId, numInterested);
+          } else {
+            const errorMessage = await response.text();
+            alert('Error: ' + errorMessage);
           }
-        });
-      });
-
-      function updateRsvpButton(button, isConfirmed) {
-        if (isConfirmed) {
-          button.textContent = "RSVP Confirmed";
-          button.classList.remove("btn-primary");
-          button.classList.add("btn-success");
-        } else {
-          button.textContent = "RSVP Now";
-          button.classList.remove("btn-success");
-          button.classList.add("btn-primary");
+        } catch (error) {
+          console.error('Error processing RSVP:', error);
+          alert('An unexpected error occurred.');
+        } finally {
+          // Re-enable the button regardless of the outcome
+          button.disabled = false;
         }
+      });
+    });
+
+    function updateRsvpButton(button, isConfirmed) {
+      if (isConfirmed) {
+        button.textContent = "RSVP Confirmed";
+        button.classList.remove("btn-primary");
+        button.classList.add("btn-success");
+      } else {
+        button.textContent = "RSVP Now";
+        button.classList.remove("btn-success");
+        button.classList.add("btn-primary");
       }
+    }
+
+    function updateNumInterested(eventId, numInterested) {
+      const numInterestedText = document.querySelector('.numInterestedText'); // Ensure this element exists in the modal
+  
+      if (numInterestedText) {
+        numInterestedText.textContent = `${numInterested}`;
+      }
+    }
     });
     
     async function deleteEvent(eventId) {
