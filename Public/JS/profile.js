@@ -78,3 +78,24 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+async function deleteEvent(eventId) {
+  if (confirm('Are you sure you want to delete this event?')) {
+    try {
+      const response = await fetch(`/events/${eventId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        alert('Event deleted successfully!');
+        window.location.href = '/events';
+      } else {
+        const errorText = await response.text();
+        alert('Error: ' + errorText);
+      }
+    } catch (err) {
+      console.error('Error deleting event:', err);
+      alert('An unexpected error occurred.');
+    }
+  }
+}
