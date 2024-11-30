@@ -1,5 +1,4 @@
 const express = require("express");
-const controller = require("../controllers/eventController");
 const { upload } = require("../middleware/fileUpload");
 const Event = require("../models/event");
 const User = require("../models/user");
@@ -197,34 +196,6 @@ router.get("/my-rsvps", async (req, res) => {
   } catch (error) {
     console.error("Error fetching RSVPed events:", error);
     res.status(500).send("Error fetching RSVPed events");
-  }
-});
-
-router.post("/edit-event", async (req, res) => {
-  try {
-    const { eventId, title, date, location, description } = req.body;
-
-    // Validate required fields
-    if (!eventId || !title || !date || !location || !description) {
-      return res.status(400).send("Missing required fields");
-    }
-
-    // Update the event in the database
-    const updatedEvent = await Event.findByIdAndUpdate(
-      eventId,
-      { title, date, location, description },
-      { new: true } // Return the updated document
-    );
-
-    if (!updatedEvent) {
-      return res.status(404).send("Event not found");
-    }
-
-    console.log("Event updated successfully:", updatedEvent);
-    res.redirect("/users/profile"); // Redirect back to the profile page
-  } catch (error) {
-    console.error("Error updating event:", error);
-    res.status(500).send("Internal Server Error");
   }
 });
 

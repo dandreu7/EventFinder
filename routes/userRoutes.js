@@ -139,6 +139,36 @@ router.post("/signup", async (req, res) => {
   }
 });
 
+//edit-event route for profile page
+router.post("/profile/edit-event", async (req, res) => {
+  console.log("Checkpoint 1");
+  try {
+    const { eventId, title, date, location, description } = req.body;
+
+    // Validate required fields
+    if (!eventId || !title || !date || !location || !description) {
+      return res.status(400).send("Missing required fields");
+    }
+
+    // Update the event in the database
+    const updatedEvent = await Event.findByIdAndUpdate(
+      eventId,
+      { title, date, location, description },
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedEvent) {
+      return res.status(404).send("Event not found");
+    }
+
+    console.log("Event updated successfully:", updatedEvent);
+    res.redirect("/users/profile"); // Redirect back to the profile page
+  } catch (error) {
+    console.error("Error updating event:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 // Route to check if the user is logged in
 router.get("/status", (req, res) => {
   res.json({ loggedIn: !!req.session.userId });
