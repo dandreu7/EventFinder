@@ -44,58 +44,58 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Handle Cancel Reservation Button
-  const cancelForms = document.querySelectorAll('.cancel-rsvp-form');
-      
-  cancelForms.forEach(form => {
-    form.addEventListener('submit', function(e) {
+  const cancelForms = document.querySelectorAll(".cancel-rsvp-form");
+
+  cancelForms.forEach((form) => {
+    form.addEventListener("submit", function (e) {
       e.preventDefault();
-      
-      const eventId = form.getAttribute('data-event-id'); // Get event ID from data attribute
-      
+
+      const eventId = form.getAttribute("data-event-id"); // Get event ID from data attribute
+
       fetch(form.action, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ eventId: eventId })
+        body: JSON.stringify({ eventId: eventId }),
       })
-      .then(response => response.json())
-      .then(data => {
-        if (data.rsvpConfirmed === false) {
-          // If RSVP was canceled, remove the event from the DOM
-          const eventItem = document.getElementById('event-' + eventId);
-          if (eventItem) {
-            eventItem.remove();
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.rsvpConfirmed === false) {
+            // If RSVP was canceled, remove the event from the DOM
+            const eventItem = document.getElementById("event-" + eventId);
+            if (eventItem) {
+              eventItem.remove();
+            }
+          } else {
+            alert("Failed to cancel RSVP. Please try again.");
           }
-        } else {
-          alert('Failed to cancel RSVP. Please try again.');
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert('An error occurred while canceling RSVP. Please try again.');
-      });
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          alert("An error occurred while canceling RSVP. Please try again.");
+        });
     });
   });
 });
 
 async function deleteEvent(eventId) {
-  if (confirm('Are you sure you want to delete this event?')) {
+  if (confirm("Are you sure you want to delete this event?")) {
     try {
       const response = await fetch(`/events/${eventId}`, {
-        method: 'DELETE',
+        method: "DELETE",
       });
 
       if (response.ok) {
-        alert('Event deleted successfully!');
-        window.location.href = '/events';
+        alert("Event deleted successfully!");
+        window.location.href = "/users/profile";
       } else {
         const errorText = await response.text();
-        alert('Error: ' + errorText);
+        alert("Error: " + errorText);
       }
     } catch (err) {
-      console.error('Error deleting event:', err);
-      alert('An unexpected error occurred.');
+      console.error("Error deleting event:", err);
+      alert("An unexpected error occurred.");
     }
   }
 }
