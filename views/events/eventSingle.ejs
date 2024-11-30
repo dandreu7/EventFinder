@@ -43,7 +43,7 @@
             <p><strong>Location:</strong> <%= event.location %></p>
             <p><strong>Description:</strong></p>
             <p><%= event.description %></p>
-            <p><strong>Number of People Interested:</strong> <span class="numInterestedText"><%= event.numInterested %></span></p>
+            <p><strong>Number of People Interested:</strong> <span class="numInterestedText" id="numInterested<%= event._id %>"><%= numInterested %></span></p>
             <% if (!event.isActive) { %>
               <p class="text-danger"><strong>This event has already passed.</strong></p>
             <% } %>
@@ -135,13 +135,12 @@
     }
 
     function updateNumInterested(eventId, numInterested) {
-      const numInterestedText = document.querySelector('.numInterestedText'); // Ensure this element exists in the modal
-  
+      const numInterestedText = document.querySelector(`#numInterested${eventId}`);
       if (numInterestedText) {
-        numInterestedText.textContent = `${numInterested}`;
+        numInterestedText.textContent = numInterested;
       }
     }
-    });
+  });
     
     async function deleteEvent(eventId) {
       if (confirm('Are you sure you want to delete this event?')) {

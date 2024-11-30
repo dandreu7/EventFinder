@@ -73,8 +73,8 @@ router.get("/events/:id", async (req, res) => {
 
     res.render("events/eventSingle", {
       event,
-      numInterested, // Pass this to the template
       user,
+      numInterested, // Pass this to the template
       userEmail,
       isOwner,
     });
