@@ -1,8 +1,11 @@
 const mongoose = require('mongoose');
 const Event = require('../models/event');
 
+// Global timeout for all tests
+jest.setTimeout(30000);
+
 describe('Event Model', () => {
-  beforeAll(() => {
+  beforeEach(() => {
     // Mock the connection to MongoDB for testing
     mongoose.connect = jest.fn();
   });

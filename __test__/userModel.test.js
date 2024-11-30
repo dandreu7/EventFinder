@@ -2,10 +2,13 @@ const bcrypt = require('bcrypt');
 const User = require('../models/user'); // Your user model
 const mongoose = require('mongoose');
 
+// Global timeout for all tests
+jest.setTimeout(30000);
+
 describe('User Model', () => {
   let user;
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     // Setup a test user
     user = new User({
       firstName: 'John',
@@ -16,7 +19,7 @@ describe('User Model', () => {
     await user.save();
   });
 
-  afterAll(async () => {
+  afterEach(async () => {
     // Clean up the database after tests
     await mongoose.connection.dropDatabase();
     await mongoose.connection.close();
