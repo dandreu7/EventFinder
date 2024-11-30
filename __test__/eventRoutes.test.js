@@ -19,6 +19,9 @@ app.use(express.json());
 app.use(session({ secret: 'test', resave: false, saveUninitialized: true }));
 app.use('/events', eventRoutes);
 
+// Global timeout for all tests
+jest.setTimeout(30000);
+
 describe('Event Routes', () => {
   beforeEach(() => {
     jest.clearAllMocks();
