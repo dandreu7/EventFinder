@@ -176,20 +176,19 @@ router.post("/events/:id/rsvp", async (req, res) => {
     if (isAlreadyRsvped) {
       // If RSVPed, remove the event from the user's RSVPed events
       user.rsvpedEvents = user.rsvpedEvents.filter((id) => id.toString() !== eventId);
-      // Decrease numInterested count on the event
-      await user.save();
+      await (event.numInterested = Math.max(0, event.numInterested - 1));
     } else {
       // If not RSVPed, add the event to the user's RSVPed events
       user.rsvpedEvents.push(eventId);
-      // Increase numInterested count on the event
-      await user.save();
+      await (event.numInterested += 1);
     }
 
-    const numInterested = await User.countDocuments({ rsvpedEvents: eventId });
-
+    await user.save();
+    await event.save();
+    
     res.status(200).json({ 
       rsvpConfirmed: !isAlreadyRsvped, 
-      numInterested 
+      numInterested: event.numInterested
     });
     
   } catch (error) {
