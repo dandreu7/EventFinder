@@ -12,7 +12,9 @@ const eventSchema = new Schema({
 });
 
 eventSchema.virtual('isActive').get(function() {
-    return this.date > new Date();
-});
+    const oneDayInFuture = new Date();
+    oneDayInFuture.setDate(oneDayInFuture.getDate() - 2); // Add 1 day to the current date
+    return this.date > oneDayInFuture;
+  });
 
 module.exports = mongoose.model('Event', eventSchema);
